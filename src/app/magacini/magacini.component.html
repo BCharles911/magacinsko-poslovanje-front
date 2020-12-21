@@ -1,1 +1,22 @@
-<p>magacini works!</p>
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Naziv Magacina</th>
+      <th scope="col">Sifra Magacina</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let magacin of magacini$ | async "
+
+    >
+      <th scope="row">1</th>
+      <td  routerLink="magacin/{{magacin.sifraMagacina}}">{{magacin.nazivMagacina}}</td>
+      <td>{{magacin.sifraMagacina}}</td>
+      <td>@mdo</td>
+    </tr>
+
+
+  </tbody>
+</table>

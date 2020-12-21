@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if(this.isLoggedIn){
-
+     this.showAdminBoard = this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
     }
 
    }

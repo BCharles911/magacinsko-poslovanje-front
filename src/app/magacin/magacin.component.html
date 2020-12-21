@@ -1,1 +1,85 @@
-<p>magacin works!</p>
+
+
+
+<div class="container-fluid" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-10">
+      <nav ngbNav #nav="ngbNav" class="nav-tabs">
+        <ng-container ngbNavItem>
+          <a ngbNavLink>Prometni dokumenti</a>
+          <ng-template ngbNavContent>
+            <hr>
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Broj prometnog dokumenta</th>
+                  <th scope="col">Redni broj dokumenta</th>
+
+                  <th scope="col">Poslovna godina</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Tip prometnog dokumenta</th>
+                  <th scope="col">Datum knjizenja</th>
+                  <th scope="col">Datum formiranja</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let m of (magacin$ | async)?.prometniDokument "
+
+                >
+                  <th scope="row">{{m.idPrometnogDokumenta}}</th>
+                  <td>{{m.brojPrometnogDokumenta}}</td>
+                  <td>{{m.redniBrojDokumenta}}</td>
+
+                  <td>{{m.poslovnaGodina}}</td>
+                  <td>{{m.status}}</td>
+                  <td>{{m.tipPrometnogDokumenta}}</td>
+                  <td>{{m.datumKnjizenja}}</td>
+                  <td>{{m.datumFormiranja}}</td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </ng-template>
+        </ng-container>
+        <ng-container ngbNavItem>
+          <a ngbNavLink>Magacinske kartice</a>
+          <ng-template ngbNavContent>
+            <hr>
+            <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
+              farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
+              ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+              helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+              8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+              stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+          </ng-template>
+        </ng-container>
+        <ng-container ngbNavItem>
+          <a ngbNavLink>Three</a>
+          <ng-template ngbNavContent>
+            <hr>
+            <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi.
+              Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio.
+              Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna,
+              egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec
+              tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et
+              magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget
+              neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+          </ng-template>
+        </ng-container>
+      </nav>
+
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+
+    <div class="col-sm-1">
+
+    </div>
+
+
+  </div>
+</div>
