@@ -60,8 +60,12 @@ import { of, Observable } from 'rxjs';
     </div>
   `,
 })
-export class NgbdModalContent {
+export class NgbdModalContent implements OnInit {
   @Input() prometniDokument;
+
+  ngOnInit(): void {
+    console.log(this.prometniDokument);
+  }
 
   constructor(public activeModal: NgbActiveModal) {}
 }
@@ -104,7 +108,7 @@ export class NgbdModalContent {
         <tbody>
           <tr *ngFor="let a of analitikeMagacinskeKartice$ | async; index as i">
             <th scope="row">{{ i + 1}}</th>
-            <td><ngb-highlight> {{a.cena | number }} RSD </ngb-highlight></td>
+            <td> {{a.cena | number }} RSD</td>
             <td><ngb-highlight [result]="a.datumNastanka" [term]="filter.value"></ngb-highlight></td>
             <td>{{ a.kolicina }}</td>
             <td>{{ a.smer }}</td>
@@ -126,7 +130,7 @@ export class NgbdModalContent {
   `,
   providers: [DecimalPipe],
 })
-export class NgbMagacinskeKartice {
+export class NgbMagacinskeKartice implements OnInit {
   @Input() analitikeMagacinskeKartice$;
   filter = new FormControl("");
 
@@ -135,6 +139,12 @@ export class NgbMagacinskeKartice {
       startWith(""),
       map((text) => this.search(text, pipe))
     );
+  }
+
+  ngOnInit(): void {
+    this.analitikeMagacinskeKartice$.subscribe(
+      response => console.log(response)
+    )
   }
 
    search(text: string, pipe: PipeTransform): AnalitikaMagacinskeKartice[] {
