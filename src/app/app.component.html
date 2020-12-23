@@ -10,7 +10,7 @@
     </i-bs> Poslovni partneri
   </a>
   <hr class="hr-sidenav">
-  <a href="#" routerLink="/magacinske-kartice">
+  <a href="#" routerLink="/artikli">
     <i-bs name="collection" class="i-bs" width="1rem" height="1rem">
     </i-bs> Artikli
   </a>
@@ -18,6 +18,16 @@
   <a href="#" routerLink="/magacinske-kartice">
     <i-bs name="file-earmark-bar-graph" class="i-bs" width="1rem" height="1rem">
     </i-bs> Izvestaji
+  </a>
+  <hr class="hr-sidenav">
+  <a href="#" routerLink="/prijemnica">
+    <i-bs name="file-earmark-plus-fill" class="i-bs" width="1rem" height="1rem">
+    </i-bs> Prijemnica
+  </a>
+  <hr class="hr-sidenav">
+  <a href="#" routerLink="/otpremnica">
+    <i-bs name="file-earmark-plus" class="i-bs" width="1rem" height="1rem">
+    </i-bs> Optremnica
   </a>
   <hr class="hr-sidenav" *ngIf="showAdminBoard">
   <a href="#" routerLink="/magacinske-kartice" *ngIf="showAdminBoard">
@@ -33,7 +43,7 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" [ngClass]="{ 'show': navbarOpen }">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/home"><span *ngIf="!isSidebarOpen" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776;
+          <a class="nav-link" ><span *ngIf="!isSidebarOpen" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776;
               Open</span>
               <span *ngIf="isSidebarOpen" style="font-size:30px;cursor:pointer" (click)="closeNav()">	<i-bs
                 name="x-circle"

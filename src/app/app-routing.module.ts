@@ -1,3 +1,6 @@
+import { OtpremnicaComponent } from './otpremnica/otpremnica.component';
+import { PrijemnicaComponent } from './prijemnica/prijemnica.component';
+import { ArtikliComponent } from './artikli/artikli.component';
 import { MagaciniComponent } from './magacini/magacini.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -11,7 +14,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   {path: 'magacini', component: MagaciniComponent },
-  {path: 'magacini/magacin/:id', component: MagacinComponent}
+  {path: 'magacini/magacin/:id', component: MagacinComponent},
+  {path: 'artikli', component: ArtikliComponent},
+  {path: 'prijemnica', component: PrijemnicaComponent},
+  {path: 'otpremnica', component: OtpremnicaComponent}
 ];
 
 @NgModule({

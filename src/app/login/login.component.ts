@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.form).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
         this.reloadPage();
       },
       err => {
+        //console.log(this.tokenStorage.getTok())
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
