@@ -73,7 +73,10 @@ export class PrijemnicaComponent implements OnInit {
 
     var hours = today.getHours();
     var minutes = today.getMinutes();
+    if(minutes < 10) {
+      this.currentTime = hours + " : " + "0"+minutes;
 
+    }
     this.currentTime = hours + ":" + minutes;
     return (this.todaysDate = mm + "/" + dd + "/" + yyyy);
   }

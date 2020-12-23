@@ -14,6 +14,10 @@ export class PoslovniPartneriService {
   constructor(private http: HttpClient) { }
 
 
+  getAll(): Observable<PoslovniPartner[]> {
+    return this.http.get<any>(POSLOVNI_URL + "all");
+  }
+
   getByDobavljaci(): Observable<PoslovniPartner[]> {
     return this.http.get<any>(POSLOVNI_URL + "dobavljaci")
   }

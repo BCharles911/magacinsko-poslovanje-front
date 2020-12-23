@@ -1,0 +1,37 @@
+<div class="container-fluid" style="padding: 30px">
+  <div class="row">
+    <div class="col-sm-4" style="  padding: 0;">
+      <div style="overflow-y: scroll; height: 1300px;">
+        <table class="table table-lg table-bordered table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Naziv partnera</th>
+              <th scope="col">PIB</th>
+              <th scope="col">Mesto</th>
+              <th scope="col">Adresa</th>
+              <th scope="col">Tip partnera</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of poslovniPartneri$ | async">
+              <th scope="row">1</th>
+              <td>{{p.nazivPartnera}}</td>
+              <td>{{p.pib}}</td>
+              <td>{{p.mesto.nazivMesta}}</td>
+              <td>{{p.adresaPoslovnogPartnera}}</td>
+              <td>{{p.tipPartnera}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+
+
+    </div>
+    <div class="col-sm" style="height: 500px; background-color: red;">
+
+    </div>
+  </div>
+</div>

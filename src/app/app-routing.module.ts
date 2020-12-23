@@ -1,3 +1,4 @@
+import { PoslovniPartneriComponent } from './poslovni-partneri/poslovni-partneri.component';
 import { OtpremnicaComponent } from './otpremnica/otpremnica.component';
 import { PrijemnicaComponent } from './prijemnica/prijemnica.component';
 import { ArtikliComponent } from './artikli/artikli.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'magacini/magacin/:id', component: MagacinComponent},
   {path: 'artikli', component: ArtikliComponent},
   {path: 'prijemnica', component: PrijemnicaComponent},
-  {path: 'otpremnica', component: OtpremnicaComponent}
+  {path: 'otpremnica', component: OtpremnicaComponent},
+  {path: 'poslovni-partneri', component: PoslovniPartneriComponent}
 ];
 
 @NgModule({
