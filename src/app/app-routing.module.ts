@@ -1,3 +1,4 @@
+import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { PoslovniPartneriComponent } from './poslovni-partneri/poslovni-partneri.component';
 import { OtpremnicaComponent } from './otpremnica/otpremnica.component';
 import { PrijemnicaComponent } from './prijemnica/prijemnica.component';
@@ -19,7 +20,9 @@ const routes: Routes = [
   {path: 'artikli', component: ArtikliComponent},
   {path: 'prijemnica', component: PrijemnicaComponent},
   {path: 'otpremnica', component: OtpremnicaComponent},
-  {path: 'poslovni-partneri', component: PoslovniPartneriComponent}
+  {path: 'poslovni-partneri', component: PoslovniPartneriComponent},
+
+  {path: 'admin-panel', component: BoardAdminComponent}
 ];
 
 @NgModule({

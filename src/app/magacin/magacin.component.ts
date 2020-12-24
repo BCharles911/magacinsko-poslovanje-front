@@ -41,7 +41,7 @@ import { of, Observable } from 'rxjs';
         <tbody>
           <tr *ngFor="let p of prometniDokument.stavkePrometnogDokumenta">
             <th scope="row">{{ p.idStavkePrometnogDokumenta }}</th>
-            <td>{{ p.artikal }}</td>
+            <td>{{ p.artikal.nazivArtikla }}</td>
             <td>{{ p.cena | number }} RSD</td>
             <td>{{ p.kolicina | number }}</td>
             <td>{{ p.vrednost | number }} RSD</td>

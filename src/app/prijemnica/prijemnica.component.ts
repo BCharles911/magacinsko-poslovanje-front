@@ -1,3 +1,4 @@
+import { PrometniDokumentiService } from './../_services/prometni-dokumenti.service';
 import { StavkaPrometnogDokumenta } from "./../_model/StavkaPrometnogDokumenta";
 import { ArtikliService } from "./../_services/artikli.service";
 import { PoslovniPartneriService } from "./../_services/poslovni-partneri.service";
@@ -38,11 +39,13 @@ export class PrijemnicaComponent implements OnInit {
     null
   );
   disablePDVNotZero = true;
+  emptyStavke = true;
 
   constructor(
     private magaciniService: MagaciniService,
     private poslovniPartneriService: PoslovniPartneriService,
-    private artikliService: ArtikliService
+    private artikliService: ArtikliService,
+    private prometniDokumentiService: PrometniDokumentiService
   ) {
     this.stavkaForm = this.createFormGroup();
   }
@@ -73,9 +76,8 @@ export class PrijemnicaComponent implements OnInit {
 
     var hours = today.getHours();
     var minutes = today.getMinutes();
-    if(minutes < 10) {
-      this.currentTime = hours + " : " + "0"+minutes;
-
+    if (minutes < 10) {
+      this.currentTime = hours + " : " + "0" + minutes;
     }
     this.currentTime = hours + ":" + minutes;
     return (this.todaysDate = mm + "/" + dd + "/" + yyyy);
@@ -109,6 +111,7 @@ export class PrijemnicaComponent implements OnInit {
         this.artikal
       )
     );
+    this.emptyStavke = false;
 
     var cenaPDVRABAT = cenaSaPDV - pot * this.rabat;
     console.log("pocetna ukupna cena:" + ukcena);
@@ -146,7 +149,7 @@ export class PrijemnicaComponent implements OnInit {
       this.pocetnaUkupnaCena = this.pocetnaUkupnaCena + stavka.vrednost;
       this.povecajRabat();
       this.povecajPDV();
-     // this.povecajPDV();
+      // this.povecajPDV();
     } else {
       this.updateStavka(
         stavka,
@@ -157,8 +160,6 @@ export class PrijemnicaComponent implements OnInit {
     console.log(stavka.artikal.sifraArtikla);
     console.log(this.stavkeToSend);
   }
-
-
 
   updateStavka(stavka, cena, vrednost) {
     console.log("update");
@@ -192,27 +193,33 @@ export class PrijemnicaComponent implements OnInit {
     }
   }
 
-
   povecajRabat() {
-    if(this.pocetnaUkupnaCena == 0) {
-      return this.cenaSaRabatom = 0;
-    }else if(this.rabat == 0){
-      return this.cenaSaRabatom = this.pocetnaUkupnaCena;
+    if (this.pocetnaUkupnaCena == 0) {
+      return (this.cenaSaRabatom = 0);
+    } else if (this.rabat == 0) {
+      return (this.cenaSaRabatom = this.pocetnaUkupnaCena);
     }
     const cenica = this.pocetnaUkupnaCena / 100;
-    this.cenaSaRabatom = this.pocetnaUkupnaCena - this.rabat*cenica;
-
+    this.cenaSaRabatom = this.pocetnaUkupnaCena - this.rabat * cenica;
   }
 
   povecajPDV() {
-    if(this.pocetnaUkupnaCena == 0){
-      return this.cenaSaPdv = 0;
-    }else if(this.pdv == 0){
+    if (this.pocetnaUkupnaCena == 0) {
+      return (this.cenaSaPdv = 0);
+    } else if (this.pdv == 0) {
       this.disablePDVNotZero = true;
     }
     const cenica = this.cenaSaRabatom / 100;
     this.disablePDVNotZero = false;
-    this.cenaSaPdv = this.cenaSaRabatom + this.pdv*cenica;
+    this.cenaSaPdv = this.cenaSaRabatom + this.pdv * cenica;
   }
 
+  proknjizi() {
+    if (this.stavkeToSend.length == 0) {
+      this.emptyStavke = true;
+      console.log(this.emptyStavke);
+    } else {
+
+    }
+  }
 }

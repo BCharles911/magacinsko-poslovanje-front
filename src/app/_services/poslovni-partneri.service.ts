@@ -21,4 +21,9 @@ export class PoslovniPartneriService {
   getByDobavljaci(): Observable<PoslovniPartner[]> {
     return this.http.get<any>(POSLOVNI_URL + "dobavljaci")
   }
+
+  getByKupci(): Observable<PoslovniPartner[]> {
+    return this.http.get<any>(POSLOVNI_URL + "kupci")
+
+  }
 }

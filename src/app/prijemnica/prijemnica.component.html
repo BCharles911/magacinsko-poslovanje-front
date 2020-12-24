@@ -1,10 +1,10 @@
-<div class="container-fluid" style="margin-top: 100px; ">
+<div class="container-fluid" style="margin-top: 20px; ">
   <div class="row">
     <div class="col-sm-1">
 
 
     </div>
-    <div class="col-sm" style="padding-top: 20px; background-color: aliceblue;" >
+    <div class="col-sm" style="padding-top: 20px; background-color: aliceblue;">
       <nav class="navbar navbar-expand-lg navbar-light " style="margin-bottom: 20px; background-color: beige;">
         <a class="navbar-brand" style="font-size: 2rem!important;">Prijemnica</a>
 
@@ -39,6 +39,12 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <div class="alert alert-danger" role="alert" *ngIf="emptyStavke">
+                Prijemnica je prazna!
+              </div>
+            </li>
+
           </ul>
 
         </div>
@@ -46,9 +52,9 @@
       <div class="container-fluid" style="padding:0;">
         <div class="row">
           <div class="col-sm">
-            <label>Magacin</label>
+            <label ><b style="font-weight: 600!important;">Magacin</b></label>
             <hr>
-            <ng-select bindLabel="nazivMagacina"  [items]="magacini" [(ngModel)]="selectedMagacin">
+            <ng-select bindLabel="nazivMagacina" [items]="magacini" [(ngModel)]="selectedMagacin">
 
 
             </ng-select>
@@ -70,7 +76,7 @@
 
           </div>
           <div class="col-sm">
-            <label>Poslovni partner</label>
+            <label ><b style="font-weight: 600!important;">Poslovni partner</b></label>
             <hr>
             <ng-select bindLabel="nazivPartnera" [items]="poslovniPartneri" [(ngModel)]="selectedPoslovniPartner">
 
@@ -98,7 +104,7 @@
           </div>
           <div class="col-sm">
 
-            <label>Dodaj stavku + </label>
+            <label ><b style="font-weight: 600!important;">Dodaj Stavku</b></label>
             <hr>
             <ng-select bindLabel="nazivArtikla" autofocus [items]="artikli" [(ngModel)]="artikal">
 
@@ -114,13 +120,13 @@
                 <div class="input-group mb3">
                   <div class="row">
                     <div class="col">
-                      <label for="rabat-input">Rabat</label>
-                      <input type="number" class="form-control" id="cena-input" [placeholder]="rabat" [(ngModel)]="rabat"
-                        aria-describedby="basic-addon3" />
+                      <label ><b style="font-weight: 600!important;">Rabat</b></label>
+                      <input type="number" class="form-control" id="cena-input" [placeholder]="rabat"
+                        [(ngModel)]="rabat" aria-describedby="basic-addon3" />
 
                     </div>
                     <div class="col">
-                      <label for="pdv-input">PDV</label>
+                      <label ><b style="font-weight: 600!important;">PDV</b></label>
                       <input type="number" class="form-control" id="pdv-input" [placeholder]="pdv" [(ngModel)]="pdv"
                         aria-describedby="basic-addon3" />
 
@@ -133,16 +139,16 @@
                   <div formGroupName="stavkaPrometnogDokumenta" novalidate>
 
 
-                    <label for="cena-input">Cena</label>
+                    <label ><b style="font-weight: 600!important;">Cena</b></label>
 
                     <div class="input-group mb-3">
 
 
                       <input class="form-control" id="cena-input"
-                        [placeholder]="'cena po ' + artikal?.jedinicaMere.nazivJediniceMere" type="number" formControlName="cena"
-                        aria-describedby="basic-addon3" />
+                        [placeholder]="'cena po ' + artikal?.jedinicaMere.nazivJediniceMere" type="number"
+                        formControlName="cena" aria-describedby="basic-addon3" />
                     </div>
-                    <label for="kolicina-input">Kolicina</label>
+                    <label for="kolicina-input"><b style="font-weight: 600!important;">Kolicina</b></label>
                     <div class="input-group mb-3">
 
                       <input type="number" class="form-control" id="kolicina-input"
@@ -181,10 +187,10 @@
                     <th scope="col">Id</th>
                     <th scope="col">Artikal</th>
                     <th scope="col">Sifra artikla</th>
-                    <th scope="col">Jedinica mere</th>
-                    <th scope="col">Jedinicna cena</th>
                     <th scope="col">Kategorija</th>
+                    <th scope="col">Jedinicna cena</th>
                     <th scope="col">Kolicina</th>
+                    <th scope="col">Jedinica mere</th>
                     <th scope="col">Ukupna cena</th>
                     <th scope="col">Ukloni</th>
                   </tr>
@@ -194,18 +200,15 @@
                     <th scope="row">1</th>
                     <td>{{s.artikal.nazivArtikla}}</td>
                     <td>{{s.artikal.nazivArtikla}}</td>
-                    <td>{{s.artikal.jedinicaMere.nazivJediniceMere}}</td>
-                    <td>{{s.cena}}</td>
                     <td>{{s.artikal.kategorijaArtikala.nazivKategorije}}</td>
-                    <td>{{s.kolicina}}</td>
-                    <td>{{s.vrednost}}</td>
-                    <td><i-bs
-                      (click)="removeStavka(s)"
-                      name="trash"
-                      class="text-secondary"
-                      width="1rem"
-                      height="1rem">
-                    </i-bs></td>
+                    <td>{{s.cena | number}} RSD</td>
+                    <td>{{s.kolicina | number}}</td>
+                    <td>{{s.artikal.jedinicaMere.nazivJediniceMere}}</td>
+                    <td>{{s.vrednost | number}} RSD</td>
+                    <td>
+                      <i-bs (click)="removeStavka(s)" name="trash" class="text-secondary" width="1rem" height="1rem">
+                      </i-bs>
+                    </td>
                   </tr>
 
 
@@ -222,16 +225,33 @@
                 <div class="row">
                   <div class="col">
                     <label>Ukupna cena</label>
-                    <input type="text" class="form-control" placeholder="Pocetna ukupna cena" [(ngModel)]="pocetnaUkupnaCena">
+                    <input type="text" class="form-control" disabled=true placeholder="Pocetna ukupna cena"
+                      [ngModel]="(pocetnaUkupnaCena | number) + ' RSD'">
                   </div>
                   <div class="col">
                     <label>cena sa rabatom</label>
-                    <input type="text" class="form-control" placeholder="cena sa rabatom" [(ngModel)]="cenaSaRabatom">
+                    <input type="text" class="form-control" disabled=true placeholder="cena sa rabatom"
+                      [ngModel]="(cenaSaRabatom | number) + ' RSD'">
                   </div>
                   <div class="col">
                     <label>cena sa pdv</label>
-                    <input type="text" class="form-control" placeholder="Cena sa pdv" [(ngModel)]="cenaSaPdv">
+                    <input type="text" class="form-control" disabled=true placeholder="Cena sa pdv"
+                      [ngModel]="(cenaSaPdv | number) + ' RSD'">
 
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col" style="margin-top: 20px; margin-right: 20px;">
+                    <button class="btn btn-success btn-md btn-block" (click)="proknjizi()">Proknjizi</button>
+                  </div>
+                  <div class="col" style="margin-top: 20px; margin-right: 20px;">
+                    <button class="btn btn-danger btn-md btn-block">Otkazi</button>
                   </div>
                 </div>
               </div>

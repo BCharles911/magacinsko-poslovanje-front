@@ -1,1 +1,277 @@
-<p>otpremnica works!</p>
+<div class="container-fluid" style="margin: 20px">
+  <div class="row">
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-10" style="padding-top: 20px; background-color: beige;">
+      <nav class="navbar navbar-expand-lg navbar-light " style="margin-bottom: 20px; background-color: aliceblue;">
+        <a class="navbar-brand" style="font-size: 2rem!important;">Otpremnica</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                <div class="input-group input-group-sm mb-3 input-datum">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Datum</span>
+                  </div>
+                  <input [value]="todaysDate" disabled=true type="text" class="form-control" aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm">
+                </div> <span class="sr-only">(current)</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="" class="nav-link">
+                <div class="input-group input-group-sm mb-3 input-datum">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Vreme</span>
+                  </div>
+                  <input type="text" [value]="currentTime" disabled=true class="form-control" aria-label="Small"
+                    aria-describedby="inputGroup-sizing-sm">
+                </div>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <div class="alert alert-warning" role="alert" *ngIf="emptyStavke">
+                Otpremnica je prazna!
+              </div>
+            </li>
+
+
+
+          </ul>
+
+        </div>
+      </nav>
+      <div class="container-fluid" style="padding:0;">
+        <div class="row">
+          <div class="col-sm">
+            <label><b style="font-weight: 600!important;">Magacin</b></label>
+            <hr>
+            <ng-select bindLabel="nazivMagacina" [items]="magacini" [(ngModel)]="selectedMagacin" (change)="onMagacinChange($event)">
+
+
+            </ng-select>
+            <div class="card" style="width: 100%;height: 400px; max-height: 400px;">
+              <div class="card-body">
+                <h5 class="card-title"><b style="font-weight: 600!important;">Magacin: </b>
+                  {{selectedMagacin?.nazivMagacina}}</h5>
+
+                <h6 class="card-subtitle mb-2 text-muted"><b style="font-weight: 600!important;">Sifra:
+                  </b>{{selectedMagacin?.sifraMagacina}}</h6>
+                <p class="card-text">
+                  <p style="font-weight: 600!important;"><b style="font-weight: 600!important;">Preduzece</b></p>
+                  <hr>
+                  <p><b style="font-weight: 600!important;">Ime:</b> {{selectedMagacin?.preduzece.nazivPreduzeca}}</p>
+                  <p><b style="font-weight: 600!important;">Sifra:</b> {{selectedMagacin?.preduzece.sifraPreduzeca}}</p>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-sm">
+
+
+              <label><b style="font-weight: 600!important;">Poslovni partner</b></label>
+              <hr>
+              <ng-select bindLabel="nazivPartnera" [items]="poslovniPartneri" [(ngModel)]="selectedPoslovniPartner">
+
+
+              </ng-select>
+              <div class="card" style="width: 100%; height:400px;max-height: 400px;">
+                <div class="card-body">
+                  <h5 class="card-title"><b style="font-weight: 600!important;">Naziv:
+                    </b>{{selectedPoslovniPartner?.nazivPartnera}}</h5>
+                  <hr>
+                  <h6 class="card-subtitle mb-2 text-muted"><b style="font-weight: 600!important;">Sifra:
+                    </b>{{selectedPoslovniPartner?.sifraPartnera}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted"><b style="font-weight: 600!important;">PIB:
+                    </b>{{selectedPoslovniPartner?.pib}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted"><b style="font-weight: 600!important;">Tip partnera:
+                    </b>{{selectedPoslovniPartner?.tipPartnera}}</h6>
+                  <p style="font-weight: 600!important;">Mesto</p>
+                  <hr>
+                  <p><b style="font-weight: 600!important;">Naziv: </b> {{selectedPoslovniPartner?.mesto.nazivMesta}}</p>
+                  <p><b style="font-weight: 600!important;">Postanski broj: </b>
+                    {{selectedPoslovniPartner?.mesto.postanskiBroj}}</p>
+
+                </div>
+              </div>
+
+
+
+
+
+          </div>
+          <div class="col-sm">
+
+            <label><b style="font-weight: 600!important;">Dodaj stavku +</b></label>
+            <hr>
+            <ng-select bindLabel="nazivArtikla" autofocus [items]="artikli" [(ngModel)]="artikal" >
+
+            </ng-select>
+            <div class="card" style="width: 100%; height:400px; max-height: 400px;">
+              <div class="card-body">
+                <h5 class="card-title">
+
+                </h5>
+
+
+
+                <div class="input-group mb3">
+                  <div class="row">
+                    <div class="col">
+                      <label for="rabat-input"><b style="font-weight: 600!important;">Rabat</b></label>
+                      <input type="number" class="form-control" id="cena-input" [placeholder]="rabat"
+                        [(ngModel)]="rabat" aria-describedby="basic-addon3" />
+
+                    </div>
+                    <div class="col">
+                      <label for="pdv-input"><b style="font-weight: 600!important;">PDV</b></label>
+                      <input type="number" class="form-control" id="pdv-input" [placeholder]="pdv" [(ngModel)]="pdv"
+                        aria-describedby="basic-addon3" />
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <form [formGroup]="stavkaForm" (ngSubmit)="onSubmit()" novalidate>
+                  <div formGroupName="stavkaPrometnogDokumenta" novalidate>
+
+
+                    <label for="cena-input"><b style="font-weight: 600!important;">Cena</b></label>
+
+                    <div class="input-group mb-3">
+
+
+                      <input class="form-control" id="cena-input"
+                        [placeholder]="'cena po ' + artikal?.jedinicaMere.nazivJediniceMere" type="number"
+                        formControlName="cena" aria-describedby="basic-addon3" />
+                    </div>
+                    <label for="kolicina-input"><b style="font-weight: 600!important;">Kolicina</b></label>
+                    <div class="input-group mb-3">
+
+                      <input type="number" class="form-control" id="kolicina-input"
+                        [placeholder]="artikal?.jedinicaMere.nazivJediniceMere" formControlName="kolicina"
+                        aria-describedby="basic-addon3" />
+                    </div>
+
+                    <!-- <select formControlName="artikal">
+                      <option *ngFor="let artikal of artikli" [value]="artikal"
+                        >{{artikal.nazivArtikla}}</option
+                      >
+                    </select> -->
+                  </div>
+
+                  <button class="btn btn-sm btn-success" type="submit" [disabled]="stavkaForm.pristine"
+                    style="margin-right: 5px;">Dodaj</button>
+                  <button class="btn btn-sm btn-danger" type="reset" (click)="revert()"
+                    [disabled]="stavkaForm.pristine">Izbrisi</button>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <div class="container-fluid" style="padding: 0;">
+        <div class="row">
+          <div class="col-sm">
+            <div style="overflow-y: scroll;height: 300px; max-height: 300px;">
+              <table class="table table-hover table-bordered table-hover table-sm">
+                <thead>
+                  <tr class="thead-light">
+                    <th scope="col">Id</th>
+                    <th scope="col">Artikal</th>
+                    <th scope="col">Sifra artikla</th>
+                    <th scope="col">Kategorija</th>
+                    <th scope="col">Jedinicna cena</th>
+                    <th scope="col">Kolicina</th>
+                    <th scope="col">Jedinica mere</th>
+                    <th scope="col">Ukupna cena</th>
+                    <th scope="col">Ukloni</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let s of stavkeToSend">
+                    <th scope="row">1</th>
+                    <td>{{s.artikal.nazivArtikla}}</td>
+                    <td>{{s.artikal.nazivArtikla}}</td>
+                    <td>{{s.artikal.kategorijaArtikala.nazivKategorije}}</td>
+                    <td>{{s.cena | number}} RSD</td>
+                    <td>{{s.kolicina | number}}</td>
+                    <td>{{s.artikal.jedinicaMere.nazivJediniceMere}}</td>
+                    <td>{{s.vrednost | number}} RSD</td>
+                    <td style="text-align: center;">
+                      <i-bs (click)="removeStavka(s)" name="trash" class="text-danger" width="1rem" height="1rem">
+                      </i-bs>
+                    </td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm" style="margin-bottom: 25px;">
+                <hr>
+                <div class="row">
+                  <div class="col">
+                    <label>Ukupna cena</label>
+                    <input type="text" class="form-control" disabled=true placeholder="Pocetna ukupna cena"
+                      [ngModel]="(pocetnaUkupnaCena | number) + ' RSD'">
+                  </div>
+                  <div class="col">
+                    <label>cena sa rabatom</label>
+                    <input type="text" class="form-control" disabled=true placeholder="cena sa rabatom"
+                      [ngModel]="(cenaSaRabatom | number) + ' RSD'">
+                  </div>
+                  <div class="col">
+                    <label>cena sa pdv</label>
+                    <input type="text" class="form-control" disabled=true placeholder="Cena sa pdv"
+                      [ngModel]="(cenaSaPdv | number) + ' RSD'">
+
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col" style="margin-top: 20px; margin-right: 20px;">
+                    <button class="btn btn-success btn-md btn-block" (click)="proknjizi()">Proknjizi</button>
+                  </div>
+                  <div class="col" style="margin-top: 20px; margin-right: 20px;">
+                    <button class="btn btn-danger btn-md btn-block" (click)="clickPrintCheck()">Otkazi</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-sm-1">
+
+    </div>
+  </div>
+</div>

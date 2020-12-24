@@ -11,6 +11,7 @@ import { PoslovniPartner } from '../_model/PoslovniPartner';
 export class PoslovniPartneriComponent implements OnInit {
 
   poslovniPartneri$: Observable<PoslovniPartner[]>;
+  partner: PoslovniPartner = new PoslovniPartner();
 
   constructor(private poslovniPartnerService : PoslovniPartneriService) { }
 
@@ -18,5 +19,12 @@ export class PoslovniPartneriComponent implements OnInit {
 
     this.poslovniPartneri$ = this.poslovniPartnerService.getAll();
   }
+
+
+
+  setPartner(p){
+    this.partner = p;
+  }
+
 
 }
