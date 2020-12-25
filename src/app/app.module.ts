@@ -22,16 +22,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { allIcons } from 'ngx-bootstrap-icons';
-import { MagaciniComponent } from './magacini/magacini.component';
+import { MagaciniComponent, NgbdModalMagacinCreate } from './magacini/magacini.component';
 import { MagacinComponent, NgbdModalContent, NgbMagacinskeKartice } from './magacin/magacin.component';
-import { ArtikliComponent } from './artikli/artikli.component';
+import { ArtikliComponent, NgbdArtikalCreateModal } from './artikli/artikli.component';
 import { ModalPrijemnicaComponent } from './magacin/modal-prijemnica/modal-prijemnica.component';
 import { ModalOtpremnicaComponent } from './magacin/modal-otpremnica/modal-otpremnica.component';
 import { PrijemnicaComponent } from './prijemnica/prijemnica.component';
 import { OtpremnicaComponent } from './otpremnica/otpremnica.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
-import { PoslovniPartneriComponent } from './poslovni-partneri/poslovni-partneri.component';
+import { PoslovniPartneriComponent, NgbdModalPoslovniPartnerCreate } from './poslovni-partneri/poslovni-partneri.component';
+import { MestaComponent } from './mesta/mesta.component';
+
 
 
 const routes: Routes = [
@@ -49,12 +51,16 @@ const routes: Routes = [
     MagacinComponent,
     NgbdModalContent,
     NgbMagacinskeKartice,
+    NgbdModalMagacinCreate,
+    NgbdModalPoslovniPartnerCreate,
+    NgbdArtikalCreateModal,
     ArtikliComponent,
     ModalPrijemnicaComponent,
     ModalOtpremnicaComponent,
     PrijemnicaComponent,
     OtpremnicaComponent,
-    PoslovniPartneriComponent
+    PoslovniPartneriComponent,
+    MestaComponent
   ],
   imports: [
 
@@ -69,6 +75,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgSelectModule,
     NgxBootstrapIconsModule.pick(allIcons),
+
 
   ],
   providers: [authInterceptorProviders,  { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService, DecimalPipe],

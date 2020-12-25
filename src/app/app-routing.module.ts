@@ -1,3 +1,4 @@
+import { MestaComponent } from './mesta/mesta.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { PoslovniPartneriComponent } from './poslovni-partneri/poslovni-partneri.component';
 import { OtpremnicaComponent } from './otpremnica/otpremnica.component';
@@ -17,10 +18,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {path: 'magacini', component: MagaciniComponent },
   {path: 'magacini/magacin/:id', component: MagacinComponent},
+  {path: 'admin-panel/magacin/:id', component: MagacinComponent},
   {path: 'artikli', component: ArtikliComponent},
   {path: 'prijemnica', component: PrijemnicaComponent},
   {path: 'otpremnica', component: OtpremnicaComponent},
   {path: 'poslovni-partneri', component: PoslovniPartneriComponent},
+  {path: 'mesta', component: MestaComponent},
 
   {path: 'admin-panel', component: BoardAdminComponent}
 ];

@@ -30,7 +30,7 @@ export class PrometniDokumentiService {
   ) {
     var date = new Date(danasnjiDatum);
     return this.http.post(
-      PROMETNI_URL + "prijmenica-proknjizi",
+      PROMETNI_URL + "create-prijemnica",
       {
         magacin,
         poslovniPartner,

@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TokenStorageService } from "./../_services/token-storage.service";
 import { MagaciniService } from "./../_services/magacini.service";
@@ -21,11 +22,14 @@ import { ActivatedRoute } from "@angular/router";
       </button>
     </div>
     <div class="modal-body">
-      <form>
+
+      <form [formGroup]="magacinForm" (ngSubmit)="onSubmitCreateMagacin()" novalidate>
+
         <div class="form-group">
           <label for="nazivMagacina">Magacin</label>
           <input
             type="text"
+            formControlName = "nazivMagacina"
             class="form-control"
             id="nazivMagacina"
             placeholder="Naziv magacina"
@@ -33,6 +37,13 @@ import { ActivatedRoute } from "@angular/router";
         </div>
 
         <div class="modal-footer">
+           <button
+            type="submit"
+            [disabled]="magacinForm.pristine"
+            class="btn btn-outline-success" >
+            Kreiraj
+          </button>
+
           <button
             type="button"
             class="btn btn-outline-dark"
@@ -45,8 +56,26 @@ import { ActivatedRoute } from "@angular/router";
     </div>
   `,
 })
-export class NgbdModalContent {
-  constructor(public activeModal: NgbActiveModal) {}
+export class NgbdModalMagacinCreate {
+
+  magacinForm: FormGroup;
+
+  constructor(public activeModal: NgbActiveModal, private magacinService : MagaciniService) {
+    this.magacinForm = this.createFormGroup();
+  }
+
+
+  createFormGroup(){
+    return new FormGroup({
+      nazivMagacina: new FormControl()
+    })
+  }
+
+  onSubmitCreateMagacin(){
+    this.magacinService.createMagacin(this.magacinForm.value.nazivMagacina)
+
+
+  }
 }
 
 @Component({
@@ -76,6 +105,6 @@ export class MagaciniComponent implements OnInit {
   removeMagacin(m) {}
 
   openMagacin() {
-    const modalRef = this.modalService.open(NgbdModalContent, { size: "xl" });
+    const modalRef = this.modalService.open(NgbdModalMagacinCreate, { size: "xl" });
   }
 }

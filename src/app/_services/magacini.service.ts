@@ -9,6 +9,10 @@ const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
 };
 
+const httpStringOptions = {
+  headers: new HttpHeaders({ "Content-Type": "text/html" }),
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +26,10 @@ export class MagaciniService {
 
   getMagacin(id: number): Observable<Magacin> {
     return this.http.get<any>(MAGACIN_URL + "get-by-id/" + id);
+  }
+
+  createMagacin(nazivMagacina) {
+    return this.http.post<string>(MAGACIN_URL + "create", nazivMagacina)
   }
 
 }
