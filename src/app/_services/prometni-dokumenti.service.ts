@@ -1,3 +1,5 @@
+import { PrometniDokument } from './../_model/PrometniDokument';
+import { Observable } from 'rxjs';
 import { Magacin } from "./../_model/Magacin";
 import { PoslovniPartner } from "./../_model/PoslovniPartner";
 import { StavkaPrometnogDokumenta } from "./../_model/StavkaPrometnogDokumenta";
@@ -17,6 +19,14 @@ export class PrometniDokumentiService {
   dateString;
   constructor(private http: HttpClient) {}
 
+  getPrijemnice() : Observable<PrometniDokument[]> {
+    return this.http.get<any>(PROMETNI_URL + 'prijemnice')
+  }
+
+  unesiPrijemnicu(
+
+  )
+
   proknjiziPrijemnicu(
     magacin: Magacin,
     poslovniPartner: PoslovniPartner,
@@ -26,7 +36,7 @@ export class PrometniDokumentiService {
     ukupnaCena: number,
     cenaSaRabatom: number,
     cenaSaPDV: number,
-    tipDokumenta: string
+    tipPrometnogDokumenta: string
   ) {
     var date = new Date(danasnjiDatum);
     return this.http.post(
@@ -39,7 +49,7 @@ export class PrometniDokumentiService {
         ukupnaCena,
         cenaSaRabatom,
         cenaSaPDV,
-        tipDokumenta
+        tipPrometnogDokumenta
       },
       httpOptions
     );
@@ -54,7 +64,7 @@ export class PrometniDokumentiService {
     ukupnaCena: number,
     cenaSaRabatom: number,
     cenaSaPDV: number,
-    tipDokumenta: string
+    tipPrometnogDokumenta: string
   ) {
     var date = new Date(danasnjiDatum);
 
@@ -68,7 +78,7 @@ export class PrometniDokumentiService {
         ukupnaCena,
         cenaSaRabatom,
         cenaSaPDV,
-        tipDokumenta
+        tipPrometnogDokumenta
       },
       httpOptions
     );

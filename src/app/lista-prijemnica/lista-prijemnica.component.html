@@ -1,0 +1,59 @@
+<div class="container-fluid" style="margin-top: 50px;">
+  <div class="row">
+
+    <div class="col-sm">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="showAdminOptions">
+        <a class="navbar-brand" href="#">Admin Nav</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/prijemnica">
+                <i-bs name="file-earmark-plus-fill" class="i-bs" width="1rem" height="1rem">
+                </i-bs> Nova prijemnica
+                <!-- <i-bs  name="plus-square" class="text-secondary" width="2rem" height="2rem">
+                </i-bs> <span class="sr-only">(current)</span> -->
+              </a>
+            </li>
+
+
+          </ul>
+        </div>
+      </nav>
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Br. prometnog dok</th>
+            <th scope="col">Datum formiranja</th>
+            <th scope="col">Datum knjizenja</th>
+            <th scope="col">Status</th>
+            <th *ngIf="showAdminOptions" scope="col">Promeni status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prometniDokument of prometniDokumenti$ | async ">
+            <th scope="row">1</th>
+            <td>{{prometniDokument.brojPrometnogDokumenta}}</td>
+            <td>{{prometniDokument.datumFormiranja}}</td>
+            <td>{{prometniDokument.datumKnjizenja}}</td>
+            <td>{{prometniDokument.status}}</td>
+            <td *ngIf="showAdminOptions" style="text-align: center;">
+             <!--  <i-bs (click)="ssss" name="trash" class="text-danger" width="1rem" height="1rem">
+              </i-bs> -->
+              <button class="btn btn-sm btn-secondary" type="submit" [disabled]="prometniDokument.status==='PROKNJIZENO'"
+              style="margin-right: 5px;">Proknjizi</button>
+            </td>
+          </tr>
+
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>

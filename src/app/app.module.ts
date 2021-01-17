@@ -33,6 +33,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { PoslovniPartneriComponent, NgbdModalPoslovniPartnerCreate } from './poslovni-partneri/poslovni-partneri.component';
 import { MestaComponent } from './mesta/mesta.component';
+import { ListaPrijemnicaComponent } from './lista-prijemnica/lista-prijemnica.component';
 
 
 
@@ -60,7 +61,8 @@ const routes: Routes = [
     PrijemnicaComponent,
     OtpremnicaComponent,
     PoslovniPartneriComponent,
-    MestaComponent
+    MestaComponent,
+    ListaPrijemnicaComponent
   ],
   imports: [
 
