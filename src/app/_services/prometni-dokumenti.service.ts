@@ -24,8 +24,18 @@ export class PrometniDokumentiService {
   }
 
   unesiPrijemnicu(
+    magacin: Magacin,
+    poslovniPartner: PoslovniPartner,
+    datumFormiranja: string
 
-  )
+  ) {
+    return this.http.post(PROMETNI_URL + "create",
+    {
+      magacin,
+      poslovniPartner,
+      datumFormiranja },
+      httpOptions);
+  }
 
   proknjiziPrijemnicu(
     magacin: Magacin,
