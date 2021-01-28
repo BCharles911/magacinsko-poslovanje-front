@@ -22,8 +22,11 @@ export class PrijemnicaComponent implements OnInit {
   artikal = null;
   selectedPoslovniPartner = null;
   selectedMagacin = null;
+  magacinToSend: Magacin[] = [];
+  poslovniPartnerToSend: PoslovniPartner[] = [];
   todaysDate;
   currentTime;
+  dateForSend;
   rabat = 0;
   pdv = 10;
   pocetnaUkupnaCena = 0;
@@ -80,7 +83,9 @@ export class PrijemnicaComponent implements OnInit {
       this.currentTime = hours + " : " + "0" + minutes;
     }
     this.currentTime = hours + ":" + minutes;
-    return (this.todaysDate = mm + "/" + dd + "/" + yyyy);
+    this.dateForSend = yyyy + "-" + mm + "-" + dd + " " + hours + ":" + minutes + ":" + "00";
+    console.log(this.dateForSend);
+    return (this.todaysDate = dd + "/" + mm + "/" + yyyy);
   }
 
   createFormGroup() {
@@ -214,12 +219,19 @@ export class PrijemnicaComponent implements OnInit {
     this.cenaSaPdv = this.cenaSaRabatom + this.pdv * cenica;
   }
 
-  proknjizi() {
+  sacuvaj() {
     if (this.stavkeToSend.length == 0) {
       this.emptyStavke = true;
       console.log(this.emptyStavke);
     } else {
+      this.magacinToSend.push(this.selectedMagacin);
+      this.poslovniPartnerToSend.push(this.selectedPoslovniPartner);
 
+      this.prometniDokumentiService.unesiPrijemnicu(
+        this.magacinToSend, this.poslovniPartnerToSend, this.todaysDate
+      );
+      console.log(this.selectedMagacin);
+      console.log(this.selectedPoslovniPartner);
     }
   }
 }

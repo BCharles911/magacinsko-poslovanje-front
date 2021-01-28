@@ -1,3 +1,4 @@
+import { ListaPrijemnicaComponent } from './lista-prijemnica/lista-prijemnica.component';
 import { MestaComponent } from './mesta/mesta.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { PoslovniPartneriComponent } from './poslovni-partneri/poslovni-partneri.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'otpremnica', component: OtpremnicaComponent},
   {path: 'poslovni-partneri', component: PoslovniPartneriComponent},
   {path: 'mesta', component: MestaComponent},
+  {path: 'lista-prijemnica', component: ListaPrijemnicaComponent},
 
   {path: 'admin-panel', component: BoardAdminComponent}
 ];

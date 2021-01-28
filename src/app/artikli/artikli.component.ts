@@ -16,7 +16,7 @@ import { Artikal } from "../_model/Artikal";
   selector: "ngbd-modal-content",
   template: `
     <div class="modal-header">
-      <h4 class="modal-title">Novi magacin</h4>
+      <h4 class="modal-title">Novi artikal</h4>
       <button
         type="button"
         class="close"
