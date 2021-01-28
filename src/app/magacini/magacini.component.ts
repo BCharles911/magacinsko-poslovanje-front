@@ -72,7 +72,9 @@ export class NgbdModalMagacinCreate {
   }
 
   onSubmitCreateMagacin(){
-    this.magacinService.createMagacin(this.magacinForm.value.nazivMagacina)
+    this.magacinService.createMagacin(this.magacinForm.value.nazivMagacina).subscribe(
+      response => console.log(response)
+    )
 
 
   }

@@ -1,5 +1,6 @@
-import { map } from 'rxjs/operators';
-import { TokenStorageService } from './../_services/token-storage.service';
+import { ConfirmationModuleComponent } from "./../_reusables/confirmation-module/confirmation-module.component";
+import { map } from "rxjs/operators";
+import { TokenStorageService } from "./../_services/token-storage.service";
 import { Mesto } from "./../_model/Mesto";
 import { MestoService } from "./../_services/mesto.service";
 import { FormGroup, FormControl } from "@angular/forms";
@@ -9,7 +10,7 @@ import { PoslovniPartneriService } from "./../_services/poslovni-partneri.servic
 import { Component, Input, OnInit, Output } from "@angular/core";
 import { PoslovniPartner } from "../_model/PoslovniPartner";
 import { inputCursor } from "ngx-bootstrap-icons";
-import { EventEmitter } from '@angular/core';
+import { EventEmitter } from "@angular/core";
 
 @Component({
   selector: "ngbd-modal-content",
@@ -36,14 +37,26 @@ import { EventEmitter } from '@angular/core';
           ></ng-select>
         </div>
         <div class="col">
-        <label>Drzava</label>
-        <input [value]="mesto?.drzava" disabled=true type="text" class="form-control" aria-label="Small"
-                    aria-describedby="inputGroup-sizing-sm">
+          <label>Drzava</label>
+          <input
+            [value]="mesto?.drzava"
+            disabled="true"
+            type="text"
+            class="form-control"
+            aria-label="Small"
+            aria-describedby="inputGroup-sizing-sm"
+          />
         </div>
         <div class="col">
-        <label>Postanski broj</label>
-        <input [value]="mesto?.postanskiBroj" disabled=true type="text" class="form-control" aria-label="Small"
-                    aria-describedby="inputGroup-sizing-sm">
+          <label>Postanski broj</label>
+          <input
+            [value]="mesto?.postanskiBroj"
+            disabled="true"
+            type="text"
+            class="form-control"
+            aria-label="Small"
+            aria-describedby="inputGroup-sizing-sm"
+          />
         </div>
       </div>
 
@@ -53,15 +66,36 @@ import { EventEmitter } from '@angular/core';
         (ngSubmit)="onSubmitPartnerCreate()"
         novalidate
       >
-        <div class="form-group">
-          <label for="nazivPartnera">Naziv partnera</label>
-          <input
-            type="text"
-            formControlName="nazivPartnera"
-            class="form-control"
-            id="nazivPartnera"
-            placeholder="Naziv partnera"
-          />
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="nazivPartnera">Naziv partnera</label>
+              <input
+                type="text"
+                formControlName="nazivPartnera"
+                class="form-control"
+                id="nazivPartnera"
+                placeholder="Naziv partnera"
+              />
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label class="input-field-label" for="roleSelect"
+                >Tip Partnera</label
+              >
+              <select
+                formControlName="tipPartnera"
+                class="form-control form-control-sm"
+                name="gender"
+                id="genderSelect"
+              >
+                <option value="KUPAC">Kupac</option>
+                <option value="DOBAVLJAC">Dobavljac</option>
+                <option value="DOBAVLJAC_I_KUPAC">Kupac i dobavljac</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -112,14 +146,11 @@ export class NgbdModalPoslovniPartnerCreate implements OnInit {
   mesto;
   createPP: PoslovniPartner = new PoslovniPartner();
 
-
   @Input() listaPP;
   constructor(
     public activeModal: NgbActiveModal,
     private poslovniPartnerService: PoslovniPartneriService,
-    private mestoService: MestoService,
-
-
+    private mestoService: MestoService
   ) {
     this.poslovniPartnerForm = this.createFormGroup();
   }
@@ -128,7 +159,6 @@ export class NgbdModalPoslovniPartnerCreate implements OnInit {
     this.mestoService.getAll().subscribe((response) => {
       this.mesta = response;
     });
-
   }
 
   createFormGroup() {
@@ -136,18 +166,26 @@ export class NgbdModalPoslovniPartnerCreate implements OnInit {
       nazivPartnera: new FormControl(),
       pib: new FormControl(),
       adresaPoslovnogPartnera: new FormControl(),
+      tipPartnera : new FormControl(),
     });
   }
-
 
   onSubmitPartnerCreate() {
     this.createPP.mesto = this.mesto;
     this.createPP.nazivPartnera = this.poslovniPartnerForm.value.nazivPartnera;
     this.createPP.pib = this.poslovniPartnerForm.value.pib;
     this.createPP.adresaPoslovnogPartnera = this.poslovniPartnerForm.value.adresaPoslovnogPartnera;
-    console.log(this.createPP.adresaPoslovnogPartnera)
+    this.createPP.tipPartnera = this.poslovniPartnerForm.value.tipPartnera;
+    console.log(this.createPP.adresaPoslovnogPartnera);
     this.activeModal.close(this.createPP);
-    // this.poslovniPartnerService.createPartner(this.magacinForm.value.nazivMagacina)
+    this.poslovniPartnerService.createNewPartner(this.createPP).subscribe(
+      (response) => {
+        console.log("partner uspesno kreiran");
+      },
+      (err) => {
+        console.log(err.error.message);
+      }
+    );
   }
 }
 
@@ -157,7 +195,7 @@ export class NgbdModalPoslovniPartnerCreate implements OnInit {
   styleUrls: ["./poslovni-partneri.component.scss"],
 })
 export class PoslovniPartneriComponent implements OnInit {
-  poslovniPartneri$: Observable<PoslovniPartner[]>;
+  poslovniPartneri;
   partner: PoslovniPartner = new PoslovniPartner();
   showAdminOptions = false;
   $partnersChange = new Subject<any>();
@@ -165,14 +203,16 @@ export class PoslovniPartneriComponent implements OnInit {
   constructor(
     private poslovniPartnerService: PoslovniPartneriService,
     private modalService: NgbModal,
-    private tokenStorageService :TokenStorageService
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit(): void {
-    this.poslovniPartneri$ = this.poslovniPartnerService.getAll();
+    this.poslovniPartnerService
+      .getAll()
+      .subscribe((response) => (this.poslovniPartneri = response));
     this.showAdminOptions = this.tokenStorageService
-    .getUser()
-    .roles.includes("ROLE_ADMIN");
+      .getUser()
+      .roles.includes("ROLE_ADMIN");
   }
 
   setPartner(p) {
@@ -184,6 +224,7 @@ export class PoslovniPartneriComponent implements OnInit {
       size: "xl",
     });
     modalRef.result.then((receivedPartner) => {
+      this.poslovniPartneri.push(receivedPartner);
 
       //this.poslovniPartneri$.subscribe(data => data.push(receivedPartner))
       // this.poslovniPartneri$.pipe(map(poslovniList => {
@@ -192,12 +233,24 @@ export class PoslovniPartneriComponent implements OnInit {
       //   return poslovniList;
 
       // }))
-    })
-
-
+    });
   }
 
-  removePoslovniPartner(p){
-
+  deletePoslovniPartner(p) {
+    const modalRef = this.modalService.open(ConfirmationModuleComponent);
+    modalRef.result.then((result) => {
+      if (result == true) {
+        this.poslovniPartnerService
+          .deletePoslovniPartner(p)
+          .subscribe((response) => {
+            const index: number = this.poslovniPartneri.indexOf(p);
+            if (index !== -1) {
+              this.poslovniPartneri.splice(index, 1);
+            }
+          });
+      } else {
+        return;
+      }
+    });
   }
 }

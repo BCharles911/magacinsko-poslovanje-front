@@ -1,10 +1,14 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PoslovniPartner } from '../_model/PoslovniPartner';
 
 
 const POSLOVNI_URL = 'http://localhost:8080/api/poslovni-partner/'
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +29,14 @@ export class PoslovniPartneriService {
   getByKupci(): Observable<PoslovniPartner[]> {
     return this.http.get<any>(POSLOVNI_URL + "kupci")
 
+  }
+
+  deletePoslovniPartner(p) {
+    return this.http.put(POSLOVNI_URL + "delete", {}, {params: {sifraPartnera : p.sifraPartnera}});
+  }
+
+
+  createNewPartner(partner) {
+    return this.http.post<PoslovniPartner>(POSLOVNI_URL + "create", partner, httpOptions);
   }
 }

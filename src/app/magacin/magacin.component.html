@@ -25,13 +25,17 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" (click)="openPrijemnicaModal()" ><i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
-                    </i-bs> Dodaj prijemnicu </a>
+                    <a class="nav-link" (click)="openPrijemnicaModal()">
+                      <i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
+                      </i-bs> Dodaj prijemnicu
+                    </a>
                   </li>
 
                   <li class="nav-item">
-                    <a class="nav-link" (click)="openOtpremnicaModal()" ><i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
-                    </i-bs> Dodaj otpremnicu </a>
+                    <a class="nav-link" (click)="openOtpremnicaModal()">
+                      <i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
+                      </i-bs> Dodaj otpremnicu
+                    </a>
                   </li>
 
                 </ul>
@@ -52,6 +56,9 @@
                   <th scope="col">Tip prometnog dokumenta</th>
                   <th scope="col">Datum knjizenja</th>
                   <th scope="col">Datum formiranja</th>
+                  <th scope="col">Proknjizi</th>
+                  <th scope="col">Otknjizi</th>
+                  <th scope="col">Stampaj</th>
                 </tr>
               </thead>
               <tbody>
@@ -65,7 +72,20 @@
                   <td>{{m.tipPrometnogDokumenta}}</td>
                   <td>{{m.datumKnjizenja}}</td>
                   <td>{{m.datumFormiranja}}</td>
+                  <td  style="text-align: center;">
+                    <i-bs name="card-checklist" class="text-success" width="1rem" height="1rem">
+                    </i-bs>
+                  </td>
+                  <td  style="text-align: center;">
+                    <i-bs name="dash-circle" class="text-danger" width="1rem" height="1rem">
+                    </i-bs>
+                  </td>
+                  <td  style="text-align: center;">
+                    <i-bs name="printer" class="text-warning" width="1rem" height="1rem">
+                    </i-bs>
+                  </td>
                 </tr>
+
 
 
               </tbody>
@@ -89,8 +109,10 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
-                    <a class="nav-link" href="#"> <i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
-                    </i-bs> Dodaj <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">
+                      <i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
+                      </i-bs> Dodaj <span class="sr-only">(current)</span>
+                    </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>

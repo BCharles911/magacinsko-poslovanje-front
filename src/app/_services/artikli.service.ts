@@ -1,10 +1,15 @@
 import { Observable } from 'rxjs';
-import { HttpInterceptor, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpInterceptor, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Artikal } from '../_model/Artikal';
 
 
-const ARTIKLI_URL = 'http://localhost:8080/api/artikal/'
+const ARTIKLI_URL = 'http://localhost:8080/api/artikal/';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +30,9 @@ export class ArtikliService {
 
   }
 
-  createArtikal(artikal: Artikal) {
+  createArtikal(artikal) {
+
+    return this.http.post(ARTIKLI_URL + "create", artikal, httpOptions);
 
   }
 }
