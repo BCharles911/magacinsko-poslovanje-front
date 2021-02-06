@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="tr-hover" *ngFor="let p of poslovniPartneri$ | async">
+            <tr class="tr-hover" *ngFor="let p of poslovniPartneri">
 
               <th scope="row">1</th>
               <td  (click)="setPartner(p)">{{p.nazivPartnera}}</td>
@@ -44,7 +44,7 @@
               <td>{{p.adresaPoslovnogPartnera}}</td>
               <td>{{p.tipPartnera}}</td>
               <td *ngIf="showAdminOptions" style="text-align: center;">
-                <i-bs (click)="removePoslovniPartner(p)" name="trash" class="text-danger" width="1rem" height="1rem">
+                <i-bs (click)="deletePoslovniPartner(p)" name="trash" class="text-danger" width="1rem" height="1rem">
                 </i-bs>
               </td>
             </tr>

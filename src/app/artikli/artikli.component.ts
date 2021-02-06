@@ -1,3 +1,7 @@
+import { JedinicaMere } from './../_model/JedinicaMere';
+import { KategorijaArtikala } from './../_model/KategorijaArtikala';
+import { KategorijaArtikalaService } from './../_services/kategorija-artikala.service';
+import { JediniceMereService } from './../_services/jedinice-mere.service';
 import { ConfirmationModuleComponent } from './../_reusables/confirmation-module/confirmation-module.component';
 import { FormControl } from "@angular/forms";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -39,6 +43,43 @@ import { Artikal } from "../_model/Artikal";
           />
         </div>
 
+        <div class="form-group">
+        <label class="input-field-label" for="roleSelect"
+                >Jedinica mere</label
+              >
+              <select
+                formControlName="jedinicaMere"
+                class="form-control form-control-sm"
+                name="jedinicaMere"
+                id="jedinicaMereSelect"
+
+              >
+                <option *ngFor="let jedinicaMere of jediniceMere" [ngValue]="jedinicaMere">
+                  {{jedinicaMere.nazivJediniceMere}}
+                </option>
+
+              </select>
+        </div>
+
+        <div class="form-group">
+        <label class="input-field-label" for="roleSelect"
+                >Kategorija artikla</label
+              >
+              <select
+                formControlName="kategorijaArtikala"
+                class="form-control form-control-sm"
+                name="kategorijaArtikala"
+                id="kategorijaArtikala"
+
+
+              >
+                <option *ngFor="let kategorijaArtikala of kategorijeArtikala" [ngValue]="kategorijaArtikala">
+                  {{kategorijaArtikala.nazivKategorije}}
+                </option>
+
+              </select>
+        </div>
+
         <div class="modal-footer">
           <button
             type="submit"
@@ -60,25 +101,45 @@ import { Artikal } from "../_model/Artikal";
     </div>
   `,
 })
-export class NgbdArtikalCreateModal {
+export class NgbdArtikalCreateModal implements OnInit {
   artikalForm: FormGroup;
+  jediniceMere;
+  kategorijeArtikala;
+
 
   constructor(
     public activeModal: NgbActiveModal,
-    private artikalService: ArtikliService
+    private artikalService: ArtikliService,
+    private jedinicaMereService : JediniceMereService,
+    private kategorijaService : KategorijaArtikalaService
   ) {
     this.artikalForm = this.createFormGroup();
+  }
+
+  ngOnInit(): void {
+    this.jedinicaMereService.getAll().subscribe((response) => this.jediniceMere = response)
+    this.kategorijaService.getAll().subscribe((response) => { this.kategorijeArtikala = response});
   }
 
   createFormGroup() {
     return new FormGroup({
       nazivArtikla: new FormControl(),
+      jedinicaMere: new FormControl(),
+      kategorijaArtikala: new FormControl()
     });
   }
 
   onSubmitCreateArtikal() {
+    console.log(this.artikalForm.value.jedinicaMere);
+    console.log(this.artikalForm.value.kategorijaArtikala);
     let artikalToCreate: Artikal = new Artikal();
-    this.artikalService.createArtikal(artikalToCreate);
+    artikalToCreate.nazivArtikla = this.artikalForm.value.nazivArtikla;
+    artikalToCreate.jedinicaMere = this.artikalForm.value.jedinicaMere;
+    artikalToCreate.kategorijaArtikala = this.artikalForm.value.kategorijaArtikala;
+    console.log(artikalToCreate)
+    this.artikalService.createArtikal(artikalToCreate).subscribe((response) => {
+      console.log(response)
+    });
   }
 }
 
