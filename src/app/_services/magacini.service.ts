@@ -32,4 +32,10 @@ export class MagaciniService {
     return this.http.post<string>(MAGACIN_URL + "create", nazivMagacina)
   }
 
+  generateReport(idMagacina, idPoslovneGodine){
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return this.http.get<any>("http://localhost:8080/magacini/" + idMagacina + "/poslovne-godine/" + idPoslovneGodine + "/lager-lista", { headers: headers, responseType: 'blob' as 'json' })
+  }
+
 }

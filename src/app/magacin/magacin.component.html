@@ -62,8 +62,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let m of (magacin$ | async)?.prometniDokument " (click)="open(m)">
-                  <th scope="row">{{m.idPrometnogDokumenta}}</th>
+                <tr *ngFor="let m of (magacin$ | async)?.prometniDokument ">
+                  <th (click)="open(m)" scope="row">{{m.idPrometnogDokumenta}}</th>
                   <td>{{m.brojPrometnogDokumenta}}</td>
                   <td>{{m.redniBrojDokumenta}}</td>
 
@@ -72,16 +72,16 @@
                   <td>{{m.tipPrometnogDokumenta}}</td>
                   <td>{{m.datumKnjizenja}}</td>
                   <td>{{m.datumFormiranja}}</td>
-                  <td  style="text-align: center;">
+                  <td style="text-align: center;">
                     <i-bs name="card-checklist" class="text-success" width="1rem" height="1rem">
                     </i-bs>
                   </td>
-                  <td  style="text-align: center;">
+                  <td style="text-align: center;">
                     <i-bs name="dash-circle" class="text-danger" width="1rem" height="1rem">
                     </i-bs>
                   </td>
-                  <td  style="text-align: center;">
-                    <i-bs name="printer" class="text-warning" width="1rem" height="1rem">
+                  <td style="text-align: center;">
+                    <i-bs (click)="printFile()" name="printer" class="text-warning" width="1rem" height="1rem">
                     </i-bs>
                   </td>
                 </tr>
@@ -115,7 +115,10 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" (click)="printLagerList()">
+                      <i-bs name="printer-fill" class="text-secondary" width="25px" height="25px">
+                      </i-bs> Izvestaj <span class="sr-only">(current)</span>
+                    </a>
                   </li>
 
                 </ul>

@@ -41,25 +41,17 @@ export class PrometniDokumentiService {
     magacin: Magacin,
     poslovniPartner: PoslovniPartner,
     stavkePrometnogDokumenta: StavkaPrometnogDokumenta[],
-    danasnjiDatum: string,
-    vreme: string,
-    ukupnaCena: number,
-    cenaSaRabatom: number,
-    cenaSaPDV: number,
-    tipPrometnogDokumenta: string
+    datumKr: string,
   ) {
-    var date = new Date(danasnjiDatum);
+    var datumKreiranja = new Date(datumKr).toString();
+
     return this.http.post(
       PROMETNI_URL + "create-prijemnica",
       {
         magacin,
         poslovniPartner,
         stavkePrometnogDokumenta,
-        date,
-        ukupnaCena,
-        cenaSaRabatom,
-        cenaSaPDV,
-        tipPrometnogDokumenta
+        datumKreiranja
       },
       httpOptions
     );

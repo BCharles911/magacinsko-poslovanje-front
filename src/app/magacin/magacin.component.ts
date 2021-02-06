@@ -1,5 +1,5 @@
-import { ModalPrijemnicaComponent } from './modal-prijemnica/modal-prijemnica.component';
-import { ModalOtpremnicaComponent } from './modal-otpremnica/modal-otpremnica.component';
+import { ModalPrijemnicaComponent } from "./modal-prijemnica/modal-prijemnica.component";
+import { ModalOtpremnicaComponent } from "./modal-otpremnica/modal-otpremnica.component";
 import { AnalitikaMagacinskeKartice } from "./../_model/AnalitikaMagacinskeKartice";
 import { MagacinskaKartica } from "./../_model/MagacinskaKartica";
 import { PrometniDokument } from "./../_model/PrometniDokument";
@@ -12,7 +12,9 @@ import { DecimalPipe, Location } from "@angular/common";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { FormControl } from "@angular/forms";
 import { map, startWith } from "rxjs/operators";
-import { of, Observable } from 'rxjs';
+import { of, Observable } from "rxjs";
+import { saveAs } from 'file-saver';
+
 @Component({
   selector: "ngbd-modal-content",
   template: `
@@ -107,13 +109,28 @@ export class NgbdModalContent implements OnInit {
         </thead>
         <tbody>
           <tr *ngFor="let a of analitikeMagacinskeKartice$ | async; index as i">
-            <th scope="row">{{ i + 1}}</th>
-            <td> {{a.cena | number }} RSD</td>
-            <td><ngb-highlight [result]="a.datumNastanka" [term]="filter.value"></ngb-highlight></td>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ a.cena | number }} RSD</td>
+            <td>
+              <ngb-highlight
+                [result]="a.datumNastanka"
+                [term]="filter.value"
+              ></ngb-highlight>
+            </td>
             <td>{{ a.kolicina }}</td>
             <td>{{ a.smer }}</td>
-            <td><ngb-highlight [result]="a.tipPrometa" [term]="filter.value"></ngb-highlight></td>
-            <td><ngb-highlight [result]="a.vrednost | number" [term]="filter.value"></ngb-highlight></td>
+            <td>
+              <ngb-highlight
+                [result]="a.tipPrometa"
+                [term]="filter.value"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="a.vrednost | number"
+                [term]="filter.value"
+              ></ngb-highlight>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -142,12 +159,12 @@ export class NgbMagacinskeKartice implements OnInit {
   }
 
   ngOnInit(): void {
-    this.analitikeMagacinskeKartice$.subscribe(
-      response => console.log(response)
-    )
+    this.analitikeMagacinskeKartice$.subscribe((response) =>
+      console.log(response)
+    );
   }
 
-   search(text: string, pipe: PipeTransform): AnalitikaMagacinskeKartice[] {
+  search(text: string, pipe: PipeTransform): AnalitikaMagacinskeKartice[] {
     return this.analitikeMagacinskeKartice$.filter((a) => {
       const term = text.toLowerCase();
       return (
@@ -157,7 +174,6 @@ export class NgbMagacinskeKartice implements OnInit {
       );
     });
   }
-
 }
 
 @Component({
@@ -167,6 +183,7 @@ export class NgbMagacinskeKartice implements OnInit {
 })
 export class MagacinComponent implements OnInit {
   magacin$: Observable<Magacin>;
+  idPoslovneGodine;
 
   constructor(
     private route: ActivatedRoute,
@@ -177,6 +194,10 @@ export class MagacinComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMagacin();
+    this.magacin$.subscribe(
+      (m) =>
+        (this.idPoslovneGodine = m.magacinskeKartice[0].poslovnaGodina.idGodine)
+    );
   }
 
   getMagacin(): void {
@@ -194,16 +215,35 @@ export class MagacinComponent implements OnInit {
       size: "xl",
       scrollable: true,
     });
-    modalRef.componentInstance.analitikeMagacinskeKartice$ = of(m.analitikeMagacinskeKartice);
+    modalRef.componentInstance.analitikeMagacinskeKartice$ = of(
+      m.analitikeMagacinskeKartice
+    );
   }
 
-  openPrijemnicaModal(){
-    const modalRef = this.modalService.open(ModalPrijemnicaComponent, {size: 'xl'})
+  openPrijemnicaModal() {
+    const modalRef = this.modalService.open(ModalPrijemnicaComponent, {
+      size: "xl",
+    });
   }
 
-  openOtpremnicaModal(){
+  openOtpremnicaModal() {
+    const modalRef = this.modalService.open(ModalOtpremnicaComponent, {
+      size: "xl",
+    });
+  }
 
-    const modalRef = this.modalService.open(ModalOtpremnicaComponent, {size: 'xl'})
+  printFile() {}
 
+  printLagerList() {
+    const idMagacina = +this.route.snapshot.paramMap.get("id");
+    this.magacinService
+      .generateReport(idMagacina, this.idPoslovneGodine)
+      .subscribe(
+        (m) => {
+          console.log(m)
+          saveAs(m,'izvestaj.pdf')
+        } ,
+        (err) => console.log(err.message)
+      );
   }
 }
