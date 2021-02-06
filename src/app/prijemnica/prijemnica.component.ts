@@ -227,9 +227,9 @@ export class PrijemnicaComponent implements OnInit {
       this.magacinToSend.push(this.selectedMagacin);
       this.poslovniPartnerToSend.push(this.selectedPoslovniPartner);
 
-      this.prometniDokumentiService.unesiPrijemnicu(
+    /*   this.prometniDokumentiService.unesiPrijemnicu(
         this.magacinToSend, this.poslovniPartnerToSend, this.todaysDate
-      );
+      ); */
       console.log(this.selectedMagacin);
       console.log(this.selectedPoslovniPartner);
     }
