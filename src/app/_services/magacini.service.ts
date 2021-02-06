@@ -38,4 +38,9 @@ export class MagaciniService {
     return this.http.get<any>("http://localhost:8080/magacini/" + idMagacina + "/poslovne-godine/" + idPoslovneGodine + "/lager-lista", { headers: headers, responseType: 'blob' as 'json' })
   }
 
+  generatePrometniDokument(idMagacina, idPrometnogDokumenta){
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return this.http.get<any>("http://localhost:8080/magacini/" + idMagacina + "/prometni-dokumenti/" + idPrometnogDokumenta + "/izvestaj", { headers: headers, responseType: 'blob' as 'json' })
+  }
 }

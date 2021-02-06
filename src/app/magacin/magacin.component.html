@@ -81,7 +81,7 @@
                     </i-bs>
                   </td>
                   <td style="text-align: center;">
-                    <i-bs (click)="printFile()" name="printer" class="text-warning" width="1rem" height="1rem">
+                    <i-bs (click)="printReport(m.idPrometnogDokumenta)" name="printer" class="text-warning" width="1rem" height="1rem">
                     </i-bs>
                   </td>
                 </tr>
@@ -165,6 +165,17 @@
 
               </tbody>
             </table>
+
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshMagKartice()">
+              </ngb-pagination>
+
+              <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshMagKartice()">
+                <option [ngValue]="2">2 items per page</option>
+                <option [ngValue]="4">4 items per page</option>
+                <option [ngValue]="6">6 items per page</option>
+              </select>
+            </div>
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>

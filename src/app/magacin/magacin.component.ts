@@ -94,6 +94,12 @@ export class NgbdModalContent implements OnInit {
           <input class="form-control ml-2" type="text" [formControl]="filter" />
         </div>
       </form>
+      <form>
+        <div class="form-group form-inline">
+          Ukupna vrednost:
+          <input class="form-control ml-2" type="text" [value]="(ukupnaVrednost | number) + ' RSD'" />
+        </div>
+      </form>
       <hr />
       <table class="table table-striped table-hover table-bordered table-sm">
         <thead class="thead-light">
@@ -134,6 +140,7 @@ export class NgbdModalContent implements OnInit {
           </tr>
         </tbody>
       </table>
+
     </div>
     <div class="modal-footer">
       <button
@@ -150,6 +157,7 @@ export class NgbdModalContent implements OnInit {
 export class NgbMagacinskeKartice implements OnInit {
   @Input() analitikeMagacinskeKartice$;
   filter = new FormControl("");
+  ukupnaVrednost;
 
   constructor(public activeModal: NgbActiveModal, pipe: DecimalPipe) {
     this.analitikeMagacinskeKartice$ = this.filter.valueChanges.pipe(
@@ -159,11 +167,19 @@ export class NgbMagacinskeKartice implements OnInit {
   }
 
   ngOnInit(): void {
-    this.analitikeMagacinskeKartice$.subscribe((response) =>
-      console.log(response)
+    this.analitikeMagacinskeKartice$.subscribe((response) => {
+      this.ukupnaVrednost = response.reduce(function(prev,cur){
+        return prev + cur.vrednost;
+      }, 0);
+    }
+
     );
   }
 
+
+  sum(key){
+
+  }
   search(text: string, pipe: PipeTransform): AnalitikaMagacinskeKartice[] {
     return this.analitikeMagacinskeKartice$.filter((a) => {
       const term = text.toLowerCase();
@@ -184,6 +200,10 @@ export class NgbMagacinskeKartice implements OnInit {
 export class MagacinComponent implements OnInit {
   magacin$: Observable<Magacin>;
   idPoslovneGodine;
+
+  page = 1;
+  pageSize = 4;
+  collectionSize = 10;
 
   constructor(
     private route: ActivatedRoute,
@@ -246,4 +266,22 @@ export class MagacinComponent implements OnInit {
         (err) => console.log(err.message)
       );
   }
+
+  printReport(idPrometnogDokumenta){
+    const idMagacina = +this.route.snapshot.paramMap.get("id");
+    this.magacinService.generatePrometniDokument(idMagacina,idPrometnogDokumenta).subscribe((r) => {
+      console.log(r);
+      saveAs(r,'prometnidokument.pdf')
+    })
+
+  }
+
+
+  refreshMagKartice() {
+    this.magacin$.subscribe(r => {
+      r.magacinskeKartice
+      .map((country, i) => ({id: i + 1, ...country}))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+
+  })}
 }

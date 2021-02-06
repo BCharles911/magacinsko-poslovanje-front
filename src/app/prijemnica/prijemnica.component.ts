@@ -9,11 +9,21 @@ import { Component, OnInit } from "@angular/core";
 import { Magacin } from "../_model/Magacin";
 import { Artikal } from "../_model/Artikal";
 import { FormControl, FormGroup } from "@angular/forms";
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: "app-prijemnica",
   templateUrl: "./prijemnica.component.html",
   styleUrls: ["./prijemnica.component.scss"],
+
+
 })
 export class PrijemnicaComponent implements OnInit {
   magacini: Magacin[] = [];
@@ -124,6 +134,7 @@ export class PrijemnicaComponent implements OnInit {
     console.log("cena sa pdv: " + cenaSaPDV);
     //console.log("stavke: " + this.stavkeToSend[0].artikal.nazivArtikla);
     //this.stavkaForm.reset();
+    this.sacuvaj();
   }
 
   setStavka(cena, kolicina, vrednost, artikal) {
@@ -226,10 +237,11 @@ export class PrijemnicaComponent implements OnInit {
     } else {
       this.magacinToSend.push(this.selectedMagacin);
       this.poslovniPartnerToSend.push(this.selectedPoslovniPartner);
-
+      console.log(this.todaysDate)
       this.prometniDokumentiService.proknjiziPrijemnicu(
         this.selectedMagacin, this.selectedPoslovniPartner, this.stavkeToSend, this.todaysDate
       ).subscribe(response => console.log(response));
+      console.log(this.todaysDate)
       console.log(this.selectedMagacin);
       console.log(this.selectedPoslovniPartner);
     }

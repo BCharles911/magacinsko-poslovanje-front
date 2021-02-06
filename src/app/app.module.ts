@@ -34,6 +34,7 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { PoslovniPartneriComponent, NgbdModalPoslovniPartnerCreate } from './poslovni-partneri/poslovni-partneri.component';
 import { MestaComponent, NgbdModalMestoCreate } from './mesta/mesta.component';
 import { ListaPrijemnicaComponent } from './lista-prijemnica/lista-prijemnica.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 
 
 
@@ -63,7 +64,8 @@ const routes: Routes = [
     OtpremnicaComponent,
     PoslovniPartneriComponent,
     MestaComponent,
-    ListaPrijemnicaComponent
+    ListaPrijemnicaComponent,
+    AdminSettingsComponent
   ],
   imports: [
 

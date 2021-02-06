@@ -234,11 +234,6 @@ export class OtpremnicaComponent implements OnInit {
         this.selectedPoslovniPartner,
         this.stavkeToSend,
         this.todaysDate,
-        this.currentTime,
-        this.pocetnaUkupnaCena,
-        this.cenaSaRabatom,
-        this.cenaSaPdv,
-        OTPREMNICA
         ).subscribe((response) =>{
           console.log(response);
         }),

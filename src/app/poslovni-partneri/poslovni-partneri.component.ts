@@ -243,6 +243,7 @@ export class PoslovniPartneriComponent implements OnInit {
         this.poslovniPartnerService
           .deletePoslovniPartner(p)
           .subscribe((response) => {
+            console.log(response)
             const index: number = this.poslovniPartneri.indexOf(p);
             if (index !== -1) {
               this.poslovniPartneri.splice(index, 1);
