@@ -84,5 +84,10 @@ export class PrometniDokumentiService {
     return this.http.post(PROMETNI_URL + 'otkazi-prijemnicu/'+idPrometnogDokumenta,httpOptions);
   }
 
+  otkaziOtpremnicu(idPrometnogDokumenta){
+    return this.http.post(PROMETNI_URL + 'otkazi-otpremnicu/'+idPrometnogDokumenta,httpOptions);
+  }
+
+
 
 }

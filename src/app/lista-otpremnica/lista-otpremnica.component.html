@@ -32,6 +32,7 @@
             <th scope="col">Datum knjizenja</th>
             <th scope="col">Status</th>
             <th *ngIf="showAdminOptions" scope="col">Promeni status</th>
+            <th *ngIf="showAdminOptions" scope="col">Otkazi</th>
           </tr>
         </thead>
         <tbody>
@@ -49,6 +50,13 @@
               <button  *ngIf="prometniDokument.tipPrometnogDokumenta === 'OTPREMNICA'" class="btn btn-sm btn-secondary"  (click)="proknjiziOtpremnicu(prometniDokument.idPrometnogDokumenta)" [disabled]="prometniDokument.status==='PROKNJIZENO'"
               style="margin-right: 5px;">Proknjizi otpremnicu</button>
             </td>
+            <td *ngIf="showAdminOptions" style="text-align: center;">
+              <!--  <i-bs (click)="ssss" name="trash" class="text-danger" width="1rem" height="1rem">
+               </i-bs> -->
+               <button  class="btn btn-sm btn-warning"  (click)="otkaziPrijemnicu(prometniDokument.idPrometnogDokumenta)" [disabled]="prometniDokument.status==='PROKNJIZENO'"
+               style="margin-right: 5px;">Otkazi</button>
+
+             </td>
           </tr>
 
 
