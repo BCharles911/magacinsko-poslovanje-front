@@ -35,8 +35,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let prometniDokument of prometniDokumenti$ | async ">
-            <th scope="row">1</th>
+          <tr *ngFor="let prometniDokument of prometniDokumenti | slice: (page-1) * pageSize : page * pageSize ">
+            <th scope="row">{{prometniDokument.idPrometnogDokumenta}}</th>
             <td>{{prometniDokument.brojPrometnogDokumenta}}</td>
             <td>{{prometniDokument.datumFormiranja}}</td>
             <td>{{prometniDokument.datumKnjizenja}}</td>
@@ -52,6 +52,9 @@
 
         </tbody>
       </table>
+
+      <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+      [collectionSize]="prometniDokumenti?.length"></ngb-pagination>
 
     </div>
 

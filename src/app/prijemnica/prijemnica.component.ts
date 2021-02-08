@@ -134,7 +134,7 @@ export class PrijemnicaComponent implements OnInit {
     console.log("cena sa pdv: " + cenaSaPDV);
     //console.log("stavke: " + this.stavkeToSend[0].artikal.nazivArtikla);
     //this.stavkaForm.reset();
-    this.sacuvaj();
+    //this.sacuvaj();
   }
 
   setStavka(cena, kolicina, vrednost, artikal) {
@@ -238,9 +238,13 @@ export class PrijemnicaComponent implements OnInit {
       this.magacinToSend.push(this.selectedMagacin);
       this.poslovniPartnerToSend.push(this.selectedPoslovniPartner);
       console.log(this.todaysDate)
-      this.prometniDokumentiService.proknjiziPrijemnicu(
+      this.prometniDokumentiService.createPrijemnica(
         this.selectedMagacin, this.selectedPoslovniPartner, this.stavkeToSend, this.todaysDate
-      ).subscribe(response => console.log(response));
+      ).subscribe(response =>  {
+        console.log(response)
+        window.location.reload();
+      });
+
       console.log(this.todaysDate)
       console.log(this.selectedMagacin);
       console.log(this.selectedPoslovniPartner);

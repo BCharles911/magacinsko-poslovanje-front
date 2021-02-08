@@ -24,7 +24,7 @@
                       <span class="sr-only">(current)</span>
                     </a>
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" (click)="openPrijemnicaModal()">
                       <i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
                       </i-bs> Dodaj prijemnicu
@@ -36,7 +36,7 @@
                       <i-bs name="file-plus-fill" class="text-secondary" width="25px" height="25px">
                       </i-bs> Dodaj otpremnicu
                     </a>
-                  </li>
+                  </li> -->
 
                 </ul>
 
@@ -62,27 +62,34 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let m of prometniDokumenti | slice: (pageD-1) * pageSizeD : pageD * pageSizeD ">
+                <tr *ngFor="let m of prometniDokumenti| slice: (pageD-1) * pageSizeD : pageD * pageSizeD ">
                   <th (click)="open(m)" scope="row">{{m.idPrometnogDokumenta}}</th>
                   <td>{{m.brojPrometnogDokumenta}}</td>
                   <td>{{m.redniBrojDokumenta}}</td>
 
                   <td>{{m.poslovnaGodina}}</td>
                   <td>{{m.status}}</td>
-                  <td>{{m.tipPrometnogDokumenta}}</td>
+                  <td *ngIf="m.tipPrometnogDokumenta === 'PRIJEMNICA'" (click)="showDetails(m)">Prijemnica</td>
+                  <td *ngIf="m.tipPrometnogDokumenta === 'OTPREMNICA'" (click)="showDetails(m)">Otpremnica</td>
                   <td>{{m.datumKnjizenja}}</td>
                   <td>{{m.datumFormiranja}}</td>
                   <td style="text-align: center;">
-                    <i-bs name="card-checklist" class="text-success" width="1rem" height="1rem">
+
+                    <i-bs name="card-checklist" class="text-success" width="1.2rem" height="1.2rem"
+                      *ngIf="m.status === 'U_FAZI_KNJIZENJA'">
+                    </i-bs>
+
+                    <i-bs  *ngIf="m.status === 'PROKNJIZENO'" name="check2-all" class="text-success" width="1.2rem" height="1.2rem">
+                    </i-bs>
+
+                  </td>
+                  <td style="text-align: center;">
+                    <i-bs name="dash-circle-fill" class="text-danger" width="1.2rem" height="1.2rem">
                     </i-bs>
                   </td>
                   <td style="text-align: center;">
-                    <i-bs name="dash-circle" class="text-danger" width="1rem" height="1rem">
-                    </i-bs>
-                  </td>
-                  <td style="text-align: center;">
-                    <i-bs (click)="printReport(m.idPrometnogDokumenta)" name="printer" class="text-warning" width="1rem"
-                      height="1rem">
+                    <i-bs (click)="printReport(m.idPrometnogDokumenta)" name="printer-fill" class="text-warning" width="1.2rem"
+                      height="1.2rem">
                     </i-bs>
                   </td>
                 </tr>
@@ -92,11 +99,12 @@
               </tbody>
             </table>
 
-            <ngb-pagination
-            class="d-flex justify-content-center"
-            [(page)]="pageD"
-            [pageSize]="pageSizeD"
-            [collectionSize]="prometniDokumenti?.length"></ngb-pagination>
+            <ngb-pagination class="d-flex justify-content-center" [(page)]="pageD" [pageSize]="pageSizeD"
+              [collectionSize]="prometniDokumenti?.length"></ngb-pagination>
+
+            <hr>
+
+            <p>{{this.detaljiDokumenta?.poslovniPartner.nazivPartnera}}</p>
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>
@@ -158,13 +166,13 @@
                   <td><strong>{{m.artikal.nazivArtikla}}</strong></td>
 
                   <td>{{m.poslovnaGodina?.godina }} / {{m.poslovnaGodina?.zakljucena}} </td>
-                  <td>{{m.kolicinaUlaza | number}} - {{m.artikal.jedinicaMere.nazivJediniceMere}}</td>
-                  <td>{{m.vrednostPocetnogStanja | number}} RSD</td>
-                  <td>{{m.kolicinaIzlaza | number}} RSD</td>
-                  <td>{{m.vrednostIzlaza | number}} RSD</td>
-                  <td>{{m.vrednostUlaza | number}} RSD</td>
+                  <td>{{m.kolicinaUlaza | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-secondary"> {{m.artikal.jedinicaMere.nazivJediniceMere}} </span> </td>
+                  <td>{{m.vrednostPocetnogStanja | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-success"> RSD</span></td>
+                  <td>{{m.kolicinaIzlaza | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-danger"> RSD</span></td>
+                  <td>{{m.vrednostIzlaza | number}} -<span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-danger"> RSD</span></td>
+                  <td>{{m.vrednostUlaza | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-success"> RSD</span></td>
                   <td>{{m.ukupnaKolicina | number}} - {{m.artikal.jedinicaMere.nazivJediniceMere}}</td>
-                  <td>{{m.ukupnaVrednost | number}} RSD</td>
+                  <td>{{m.ukupnaVrednost | number}} -  <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-success"> RSD</span></td>
 
 
 
@@ -179,7 +187,7 @@
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>
-          <a ngbNavLink>Three</a>
+          <a ngbNavLink>Statistika</a>
           <ng-template ngbNavContent>
             <hr>
 

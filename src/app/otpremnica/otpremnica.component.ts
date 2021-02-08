@@ -230,7 +230,7 @@ export class OtpremnicaComponent implements OnInit {
       this.emptyStavke = true;
       console.log(this.emptyStavke);
     } else {
-      this.prometniDokumentiService.proknjiziOtpremnicu(this.selectedMagacin,
+      this.prometniDokumentiService.createOtpremnica(this.selectedMagacin,
         this.selectedPoslovniPartner,
         this.stavkeToSend,
         this.todaysDate,

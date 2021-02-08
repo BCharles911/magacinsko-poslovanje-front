@@ -12,7 +12,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaPrijemnicaComponent implements OnInit {
   showAdminOptions = false;
-  prometniDokumenti$: Observable<PrometniDokument[]>;
+  prometniDokumenti: PrometniDokument[];
+  page = 1;
+  pageSize = 4;
+  collectionSize = 10;
 
 
   constructor(
@@ -23,7 +26,7 @@ export class ListaPrijemnicaComponent implements OnInit {
     this.showAdminOptions = this.tokenStorageService
     .getUser()
     .roles.includes("ROLE_ADMIN");
-    this.prometniDokumenti$ = this.prometniDokumentiService.getPrijemnice();
+    this.prometniDokumentiService.getPrijemnice().subscribe(p => this.prometniDokumenti = p);
   }
 
 }

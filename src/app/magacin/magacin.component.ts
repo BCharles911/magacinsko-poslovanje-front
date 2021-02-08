@@ -19,7 +19,7 @@ import { saveAs } from 'file-saver';
   selector: "ngbd-modal-content",
   template: `
     <div class="modal-header">
-      <h4 class="modal-title">{{ prometniDokument?.idPrometnogDokumenta }}</h4>
+      <h4 class="modal-title">Stavke prometnog dokumenta ID-a: {{ prometniDokument?.idPrometnogDokumenta }}</h4>
       <button
         type="button"
         class="close"
@@ -41,7 +41,7 @@ import { saveAs } from 'file-saver';
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of prometniDokument.stavkePrometnogDokumenta">
+          <tr *ngFor="let p of prometniDokument.stavkePrometnogDokumenta | slice: (page-1) * pageSize : page * pageSize">
             <th scope="row">{{ p.idStavkePrometnogDokumenta }}</th>
             <td>{{ p.artikal.nazivArtikla }}</td>
             <td>{{ p.cena | number }} RSD</td>
@@ -50,6 +50,9 @@ import { saveAs } from 'file-saver';
           </tr>
         </tbody>
       </table>
+      <hr>
+      <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+              [collectionSize]="prometniDokument.stavkePrometnogDokumenta?.length"></ngb-pagination>
     </div>
     <div class="modal-footer">
       <button
@@ -64,6 +67,9 @@ import { saveAs } from 'file-saver';
 })
 export class NgbdModalContent implements OnInit {
   @Input() prometniDokument;
+  page = 1;
+  pageSize = 4;
+  collectionSize = 10;
 
   ngOnInit(): void {
     console.log(this.prometniDokument);
@@ -88,12 +94,6 @@ export class NgbdModalContent implements OnInit {
       </button>
     </div>
     <div class="modal-body">
-      <form>
-        <div class="form-group form-inline">
-          Full text search:
-          <input class="form-control ml-2" type="text" [formControl]="filter" />
-        </div>
-      </form>
       <form>
         <div class="form-group form-inline">
           Ukupna vrednost:
@@ -162,7 +162,7 @@ export class NgbMagacinskeKartice implements OnInit {
   constructor(public activeModal: NgbActiveModal, pipe: DecimalPipe) {
     this.analitikeMagacinskeKartice$ = this.filter.valueChanges.pipe(
       startWith(""),
-      map((text) => this.search(text, pipe))
+
     );
   }
 
@@ -176,20 +176,6 @@ export class NgbMagacinskeKartice implements OnInit {
     );
   }
 
-
-  sum(key){
-
-  }
-  search(text: string, pipe: PipeTransform): AnalitikaMagacinskeKartice[] {
-    return this.analitikeMagacinskeKartice$.filter((a) => {
-      const term = text.toLowerCase();
-      return (
-        a.datumNastanka.toLowerCase().includes(term) ||
-        pipe.transform(a.vrednost).includes(term) ||
-        a.tipPrometa.toLowerCase().includes(term)
-      );
-    });
-  }
 }
 
 @Component({
@@ -209,6 +195,7 @@ export class MagacinComponent implements OnInit {
   collectionSizeD = 10;
   magacinskeKartice: MagacinskaKartica[];
   prometniDokumenti: PrometniDokument[];
+  detaljiDokumenta: PrometniDokument;
 
   constructor(
     private route: ActivatedRoute,
@@ -237,8 +224,14 @@ export class MagacinComponent implements OnInit {
   }
 
   open(m) {
+    console.log(m);
+
     const modalRef = this.modalService.open(NgbdModalContent, { size: "xl" });
     modalRef.componentInstance.prometniDokument = m;
+  }
+
+  showDetails(m){
+    this.detaljiDokumenta = m;
   }
 
   openMag(m) {

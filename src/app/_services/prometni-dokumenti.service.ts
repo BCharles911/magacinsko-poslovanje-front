@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { PrometniDokument } from './../_model/PrometniDokument';
 import { Observable } from 'rxjs';
 import { Magacin } from "./../_model/Magacin";
@@ -20,11 +21,13 @@ export class PrometniDokumentiService {
   constructor(private http: HttpClient) {}
 
   getPrijemnice() : Observable<PrometniDokument[]> {
-    return this.http.get<any>(PROMETNI_URL + 'prijemnice')
+    return this.http.get<any>(PROMETNI_URL + 'prijemnice').pipe(
+      map(results => results.sort((a,b) => a.idPrometnogDokumenta < b.idPrometnogDokumenta ? -1 :1))
+    )
   }
 
 
-  proknjiziPrijemnicu(
+  createPrijemnica(
     magacin: Magacin,
     poslovniPartner: PoslovniPartner,
     stavkePrometnogDokumenta: StavkaPrometnogDokumenta[],
@@ -44,7 +47,7 @@ export class PrometniDokumentiService {
     );
   }
 
-  proknjiziOtpremnicu(
+  createOtpremnica(
     magacin: Magacin,
     poslovniPartner: PoslovniPartner,
     stavkePrometnogDokumenta: StavkaPrometnogDokumenta[],
@@ -62,6 +65,13 @@ export class PrometniDokumentiService {
       },
       httpOptions
     );
+  }
+
+  proknjiziPrijemnicu(idPrometnogDokumenta){
+    return this.http.post(PROMETNI_URL + 'proknjizi-prijemnicu?idPrometnogDokumenta=' +idPrometnogDokumenta, httpOptions)
+  }
+  proknjiziOtpremnicu(idPrometnogDokumenta){
+
   }
 
 
