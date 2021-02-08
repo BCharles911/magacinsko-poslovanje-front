@@ -32,12 +32,21 @@ export class ListaPrijemnicaComponent implements OnInit {
 
   proknjiziPrijemnicu(idPrometnogDokumenta){
 
-    this.prometniDokumentiService.proknjiziPrijemnicu(idPrometnogDokumenta).subscribe(r => console.log(r))
-
+    this.prometniDokumentiService.proknjiziPrijemnicu(idPrometnogDokumenta).subscribe(r => {
+      window.location.reload();
+      console.log(r)
+    }
+    )
   }
 
   proknjiziOtpremnicu(idPrometnogDokumenta){
 
   }
 
+  otkaziPrijemnicu(idPrometnogDokumenta){
+    this.prometniDokumentiService.otkaziPrijemnicu(idPrometnogDokumenta).subscribe(r => {
+      window.location.reload();
+      console.log(r)
+    }
+    )}
 }

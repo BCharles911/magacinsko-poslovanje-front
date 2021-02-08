@@ -225,7 +225,7 @@ export class OtpremnicaComponent implements OnInit {
     this.cenaSaPdv = this.cenaSaRabatom + this.pdv * cenica;
   }
 
-  proknjizi() {
+  sacuvaj() {
     if (this.stavkeToSend.length == 0) {
       this.emptyStavke = true;
       console.log(this.emptyStavke);

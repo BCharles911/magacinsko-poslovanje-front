@@ -35,6 +35,7 @@ import { PoslovniPartneriComponent, NgbdModalPoslovniPartnerCreate } from './pos
 import { MestaComponent, NgbdModalMestoCreate } from './mesta/mesta.component';
 import { ListaPrijemnicaComponent } from './lista-prijemnica/lista-prijemnica.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { ListaOtpremnicaComponent } from './lista-otpremnica/lista-otpremnica.component';
 
 
 
@@ -65,7 +66,8 @@ const routes: Routes = [
     PoslovniPartneriComponent,
     MestaComponent,
     ListaPrijemnicaComponent,
-    AdminSettingsComponent
+    AdminSettingsComponent,
+    ListaOtpremnicaComponent
   ],
   imports: [
 

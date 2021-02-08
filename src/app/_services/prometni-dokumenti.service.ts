@@ -26,6 +26,12 @@ export class PrometniDokumentiService {
     )
   }
 
+  getOtpremnice() : Observable<PrometniDokument[]> {
+    return this.http.get<any>(PROMETNI_URL + 'otpremnice').pipe(
+      map(results => results.sort((a,b) => a.idPrometnogDokumenta < b.idPrometnogDokumenta ? -1 :1))
+    )
+  }
+
 
   createPrijemnica(
     magacin: Magacin,
@@ -72,6 +78,10 @@ export class PrometniDokumentiService {
   }
   proknjiziOtpremnicu(idPrometnogDokumenta){
 
+  }
+
+  otkaziPrijemnicu(idPrometnogDokumenta){
+    return this.http.post(PROMETNI_URL + 'otkazi-prijemnicu/'+idPrometnogDokumenta,httpOptions);
   }
 
 
