@@ -1,3 +1,4 @@
+import { PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PrometniDokument } from './../_model/PrometniDokument';
 import { TokenStorageService } from './../_services/token-storage.service';
@@ -27,6 +28,16 @@ export class ListaPrijemnicaComponent implements OnInit {
     .getUser()
     .roles.includes("ROLE_ADMIN");
     this.prometniDokumentiService.getPrijemnice().subscribe(p => this.prometniDokumenti = p);
+  }
+
+  proknjiziPrijemnicu(idPrometnogDokumenta){
+
+    this.prometniDokumentiService.proknjiziPrijemnicu(idPrometnogDokumenta).subscribe(r => console.log(r))
+
+  }
+
+  proknjiziOtpremnicu(idPrometnogDokumenta){
+
   }
 
 }
