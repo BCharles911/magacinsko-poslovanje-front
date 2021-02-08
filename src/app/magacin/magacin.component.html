@@ -62,7 +62,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let m of (magacin$ | async)?.prometniDokument ">
+                <tr *ngFor="let m of prometniDokumenti | slice: (pageD-1) * pageSizeD : pageD * pageSizeD ">
                   <th (click)="open(m)" scope="row">{{m.idPrometnogDokumenta}}</th>
                   <td>{{m.brojPrometnogDokumenta}}</td>
                   <td>{{m.redniBrojDokumenta}}</td>
@@ -81,7 +81,8 @@
                     </i-bs>
                   </td>
                   <td style="text-align: center;">
-                    <i-bs (click)="printReport(m.idPrometnogDokumenta)" name="printer" class="text-warning" width="1rem" height="1rem">
+                    <i-bs (click)="printReport(m.idPrometnogDokumenta)" name="printer" class="text-warning" width="1rem"
+                      height="1rem">
                     </i-bs>
                   </td>
                 </tr>
@@ -90,6 +91,12 @@
 
               </tbody>
             </table>
+
+            <ngb-pagination
+            class="d-flex justify-content-center"
+            [(page)]="pageD"
+            [pageSize]="pageSizeD"
+            [collectionSize]="prometniDokumenti?.length"></ngb-pagination>
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>
@@ -144,7 +151,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let m of (magacin$ | async)?.magacinskeKartice " (click)="openMag(m)">
+                <tr *ngFor="let m of magacinskeKartice | slice: (page-1) * pageSize : page * pageSize "
+                  (click)="openMag(m)">
                   <th scope="row">{{m.idMagacinskeKartice}}</th>
                   <td>{{m.redniBrMagacinskeKa}}</td>
                   <td><strong>{{m.artikal.nazivArtikla}}</strong></td>
@@ -166,16 +174,8 @@
               </tbody>
             </table>
 
-            <div class="d-flex justify-content-between p-2">
-              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshMagKartice()">
-              </ngb-pagination>
-
-              <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshMagKartice()">
-                <option [ngValue]="2">2 items per page</option>
-                <option [ngValue]="4">4 items per page</option>
-                <option [ngValue]="6">6 items per page</option>
-              </select>
-            </div>
+            <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+              [collectionSize]="magacinskeKartice?.length"></ngb-pagination>
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>

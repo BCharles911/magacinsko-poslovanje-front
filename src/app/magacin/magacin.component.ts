@@ -204,6 +204,11 @@ export class MagacinComponent implements OnInit {
   page = 1;
   pageSize = 4;
   collectionSize = 10;
+  pageD = 1;
+  pageSizeD = 4;
+  collectionSizeD = 10;
+  magacinskeKartice: MagacinskaKartica[];
+  prometniDokumenti: PrometniDokument[];
 
   constructor(
     private route: ActivatedRoute,
@@ -216,8 +221,14 @@ export class MagacinComponent implements OnInit {
     this.getMagacin();
     this.magacin$.subscribe(
       (m) =>
+      {
         (this.idPoslovneGodine = m.magacinskeKartice[0].poslovnaGodina.idGodine)
+        this.magacinskeKartice = m.magacinskeKartice;
+        this.prometniDokumenti = m.prometniDokument;
+      }
     );
+
+
   }
 
   getMagacin(): void {
@@ -277,11 +288,5 @@ export class MagacinComponent implements OnInit {
   }
 
 
-  refreshMagKartice() {
-    this.magacin$.subscribe(r => {
-      r.magacinskeKartice
-      .map((country, i) => ({id: i + 1, ...country}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
 
-  })}
 }

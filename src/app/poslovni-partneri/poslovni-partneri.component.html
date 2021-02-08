@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="tr-hover" *ngFor="let p of poslovniPartneri">
+            <tr class="tr-hover" *ngFor="let p of poslovniPartneri | slice: (page-1) * pageSize : page * pageSize">
 
               <th scope="row">1</th>
               <td  (click)="setPartner(p)">{{p.nazivPartnera}}</td>
@@ -51,6 +51,13 @@
 
           </tbody>
         </table>
+
+        <ngb-pagination
+        class="d-flex justify-content-center"
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="poslovniPartneri?.length"></ngb-pagination>
+
       </div>
 
 

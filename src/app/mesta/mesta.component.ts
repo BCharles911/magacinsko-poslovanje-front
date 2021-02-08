@@ -115,6 +115,9 @@ export class NgbdModalMestoCreate {
 })
 export class MestaComponent implements OnInit {
 
+  page = 1;
+  pageSize = 4;
+  collectionSize = 10;
   mesta;
   showAdminOptions = false;
 

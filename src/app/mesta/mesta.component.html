@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let mesto of mesta ">
+          <tr *ngFor="let mesto of mesta | slice: (page-1) * pageSize : page * pageSize ">
             <th scope="row">1</th>
             <td>{{mesto.postanskiBroj}}</td>
             <td>{{mesto.nazivMesta}}</td>
@@ -46,6 +46,8 @@
 
         </tbody>
       </table>
+      <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+      [collectionSize]="mesta?.length"></ngb-pagination>
 
     </div>
 

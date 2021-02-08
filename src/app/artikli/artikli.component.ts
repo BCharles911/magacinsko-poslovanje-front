@@ -139,6 +139,7 @@ export class NgbdArtikalCreateModal implements OnInit {
     console.log(artikalToCreate)
     this.artikalService.createArtikal(artikalToCreate).subscribe((response) => {
       console.log(response)
+      this.activeModal.close();
     });
   }
 }
@@ -150,7 +151,10 @@ export class NgbdArtikalCreateModal implements OnInit {
 })
 export class ArtikliComponent implements OnInit {
   showAdminOptions = false;
-  artikli$;
+  artikli;
+  page = 1;
+  pageSize = 5;
+  collectionSize = 10;
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -162,7 +166,7 @@ export class ArtikliComponent implements OnInit {
     this.showAdminOptions = this.tokenStorageService
       .getUser()
       .roles.includes("ROLE_ADMIN");
-    this.artikliService.getAllArtikle().subscribe(response => this.artikli$ = response);
+    this.artikliService.getAllArtikle().subscribe(response => this.artikli = response);
   }
 
   openArtikal() {
@@ -177,9 +181,9 @@ export class ArtikliComponent implements OnInit {
       if(result == true){
         this.artikliService.deleteArtikal(artikal).subscribe(
           (response) => {
-            const index: number = this.artikli$.indexOf(artikal);
+            const index: number = this.artikli.indexOf(artikal);
             if(index !== -1){
-              this.artikli$.splice(index,1);
+              this.artikli.splice(index,1);
             }
           }
         )

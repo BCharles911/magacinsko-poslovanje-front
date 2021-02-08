@@ -199,6 +199,9 @@ export class PoslovniPartneriComponent implements OnInit {
   partner: PoslovniPartner = new PoslovniPartner();
   showAdminOptions = false;
   $partnersChange = new Subject<any>();
+  page = 1;
+  pageSize = 5;
+  collectionSize = 10;
 
   constructor(
     private poslovniPartnerService: PoslovniPartneriService,
