@@ -68,7 +68,7 @@ export class PrometniDokumentiService {
   }
 
   proknjiziPrijemnicu(idPrometnogDokumenta){
-    return this.http.post(PROMETNI_URL + 'proknjizi-prijemnicu?idPrometnogDokumenta=' +idPrometnogDokumenta, httpOptions)
+    return this.http.post(PROMETNI_URL + 'proknjizi-prijemnicu/'+ idPrometnogDokumenta, httpOptions)
   }
   proknjiziOtpremnicu(idPrometnogDokumenta){
 
