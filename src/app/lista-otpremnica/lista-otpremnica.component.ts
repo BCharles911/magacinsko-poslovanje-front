@@ -27,7 +27,10 @@ export class ListaOtpremnicaComponent implements OnInit {
     }
 
     proknjiziOtpremnicu(idPrometnogDokumenta){
-
+      this.prometniDokumentiService.proknjiziOtpremnicu(idPrometnogDokumenta).subscribe(r =>{
+        console.log(r);
+        window.location.reload();
+      })
     }
 
     proknjiziPrijemnicu(idPrometnogDokumenta){
