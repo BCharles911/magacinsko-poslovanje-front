@@ -236,7 +236,7 @@ export class OtpremnicaComponent implements OnInit {
         this.todaysDate,
         ).subscribe((response) =>{
           console.log(response);
-          window.location.reload();
+         location.replace('/lista-otpremnica');
         }),
         (error) => {
           console.log(error.error.message)

@@ -115,7 +115,7 @@ export class NgbdModalContent implements OnInit {
         </thead>
         <tbody>
           <tr *ngFor="let a of analitikeMagacinskeKartice$ | async; index as i">
-            <th scope="row">{{ i + 1 }}</th>
+            <th scope="row">{{ a.idAnalitike }}</th>
             <td>{{ a.cena | number }} RSD</td>
             <td>
               <ngb-highlight

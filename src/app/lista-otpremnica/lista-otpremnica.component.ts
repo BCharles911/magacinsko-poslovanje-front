@@ -43,7 +43,7 @@ export class ListaOtpremnicaComponent implements OnInit {
     }
 
     otkaziPrijemnicu(idPrometnogDokumenta){
-      this.prometniDokumentiService.otkaziPrijemnicu(idPrometnogDokumenta).subscribe(r =>{ console.log(r)
+      this.prometniDokumentiService.otkaziDokument(idPrometnogDokumenta).subscribe(r =>{ console.log(r)
       window.location.reload()});
     }
 }

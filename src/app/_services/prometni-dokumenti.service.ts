@@ -80,13 +80,12 @@ export class PrometniDokumentiService {
     return this.http.post(PROMETNI_URL + 'proknjizi-otpremnicu/'+ idPrometnogDokumenta, httpOptions)
   }
 
-  otkaziPrijemnicu(idPrometnogDokumenta){
-    return this.http.post(PROMETNI_URL + 'otkazi-prijemnicu/'+idPrometnogDokumenta,httpOptions);
+  otkaziDokument(idPrometnogDokumenta){
+    return this.http.post(PROMETNI_URL + 'otkazi-dokument/'+idPrometnogDokumenta,httpOptions);
   }
 
-  otkaziOtpremnicu(idPrometnogDokumenta){
-    return this.http.post(PROMETNI_URL + 'otkazi-otpremnicu/'+idPrometnogDokumenta,httpOptions);
-  }
+
+
 
 
 

@@ -44,7 +44,7 @@ export class ListaPrijemnicaComponent implements OnInit {
   }
 
   otkaziPrijemnicu(idPrometnogDokumenta){
-    this.prometniDokumentiService.otkaziPrijemnicu(idPrometnogDokumenta).subscribe(r => {
+    this.prometniDokumentiService.otkaziDokument(idPrometnogDokumenta).subscribe(r => {
       window.location.reload();
       console.log(r)
     }
