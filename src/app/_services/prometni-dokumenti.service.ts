@@ -22,13 +22,13 @@ export class PrometniDokumentiService {
 
   getPrijemnice() : Observable<PrometniDokument[]> {
     return this.http.get<any>(PROMETNI_URL + 'prijemnice').pipe(
-      map(results => results.sort((a,b) => a.idPrometnogDokumenta < b.idPrometnogDokumenta ? -1 :1))
+      map(results => results.sort((a,b) => a.idPrometnogDokumenta > b.idPrometnogDokumenta ? -1 :1))
     )
   }
 
   getOtpremnice() : Observable<PrometniDokument[]> {
     return this.http.get<any>(PROMETNI_URL + 'otpremnice').pipe(
-      map(results => results.sort((a,b) => a.idPrometnogDokumenta < b.idPrometnogDokumenta ? -1 :1))
+      map(results => results.sort((a,b) => a.idPrometnogDokumenta > b.idPrometnogDokumenta ? -1 :1))
     )
   }
 

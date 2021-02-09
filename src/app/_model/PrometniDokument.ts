@@ -14,5 +14,6 @@ export class PrometniDokument {
   poslovnaGodina: PoslovnaGodina;
   poslovniPartner: PoslovniPartner;
   stavkePrometnogDokumenta: StavkaPrometnogDokumenta[];
+  deleted:boolean;
 
 }

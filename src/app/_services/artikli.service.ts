@@ -35,4 +35,8 @@ export class ArtikliService {
     return this.http.post(ARTIKLI_URL + "create", artikal, httpOptions);
 
   }
+
+  update(artikal){
+    return this.http.post(ARTIKLI_URL + "update/" + artikal.id, artikal, httpOptions)
+  }
 }

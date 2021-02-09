@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,7 +20,9 @@ export class PoslovniPartneriService {
 
 
   getAll(): Observable<PoslovniPartner[]> {
-    return this.http.get<any>(POSLOVNI_URL + "all");
+    return this.http.get<any>(POSLOVNI_URL + "all").pipe(
+      map(results => results.sort((a,b) => a.sifraPartnera < b.sifraPartnera ? -1 :1))
+    );
   }
 
   getByDobavljaci(): Observable<PoslovniPartner[]> {
@@ -38,5 +41,14 @@ export class PoslovniPartneriService {
 
   createNewPartner(partner) {
     return this.http.post<PoslovniPartner>(POSLOVNI_URL + "create", partner, httpOptions);
+  }
+
+  update(partner): Observable<any> {
+
+    return this.http.put(
+      POSLOVNI_URL + "update/" + partner.id,
+      partner,
+      httpOptions
+    )
   }
 }

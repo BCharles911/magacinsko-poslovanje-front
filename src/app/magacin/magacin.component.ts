@@ -191,7 +191,7 @@ export class MagacinComponent implements OnInit {
   pageSize = 4;
   collectionSize = 10;
   pageD = 1;
-  pageSizeD = 4;
+  pageSizeD = 10;
   collectionSizeD = 10;
   magacinskeKartice: MagacinskaKartica[];
   prometniDokumenti: PrometniDokument[];
@@ -209,9 +209,9 @@ export class MagacinComponent implements OnInit {
     this.magacin$.subscribe(
       (m) =>
       {
-        (this.idPoslovneGodine = m.magacinskeKartice[0].poslovnaGodina.idGodine)
-        this.magacinskeKartice = m.magacinskeKartice;
-        this.prometniDokumenti = m.prometniDokument;
+        (this.idPoslovneGodine = m.magacinskeKartice[0]?.poslovnaGodina?.idGodine)
+        this.magacinskeKartice = m.magacinskeKartice.sort((a,b) => a.idMagacinskeKartice - b.idMagacinskeKartice);
+        this.prometniDokumenti = m.prometniDokument.sort((a,b) => a.idPrometnogDokumenta - b.idPrometnogDokumenta);
       }
     );
 

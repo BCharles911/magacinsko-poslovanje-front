@@ -140,6 +140,7 @@ export class NgbdArtikalCreateModal implements OnInit {
     this.artikalService.createArtikal(artikalToCreate).subscribe((response) => {
       console.log(response)
       this.activeModal.close();
+      window.location.reload();
     });
   }
 }
@@ -155,11 +156,17 @@ export class ArtikliComponent implements OnInit {
   page = 1;
   pageSize = 5;
   collectionSize = 10;
+  isDisabled = true;
+  artikal: Artikal = new Artikal();
+  jediniceMere: JedinicaMere[];
+  kategorijeArtikala: KategorijaArtikala[];
 
   constructor(
     private tokenStorageService: TokenStorageService,
     private artikliService: ArtikliService,
-    private modalService : NgbModal
+    private modalService : NgbModal,
+    private jedinicaMereService : JediniceMereService,
+    private kategorijaArtikalaService: KategorijaArtikalaService
   ) {}
 
   ngOnInit(): void {
@@ -167,6 +174,15 @@ export class ArtikliComponent implements OnInit {
       .getUser()
       .roles.includes("ROLE_ADMIN");
     this.artikliService.getAllArtikle().subscribe(response => this.artikli = response);
+    this.jedinicaMereService.getAll().subscribe(response => {
+      this.jediniceMere = response;
+      console.log(response)
+    })
+    this.kategorijaArtikalaService.getAll().subscribe(response => this.kategorijeArtikala = response)
+  }
+
+  compareFn(c1: JedinicaMere, c2: JedinicaMere): boolean {
+    return c1 && c2 ? c1.idJedMere === c2.idJedMere : c1 === c2;
   }
 
   openArtikal() {
@@ -194,5 +210,26 @@ export class ArtikliComponent implements OnInit {
 
 
 
+  }
+
+  setArtikal(a){
+    this.artikal = a
+  }
+
+  enableEdit(){
+    this.isDisabled = !this.isDisabled;
+    console.log(this.isDisabled)
+    console.log(this.artikal)
+  }
+
+  onSubmitEdit(){
+    this.artikliService.update(this.artikal).subscribe(
+      data => {
+        console.log(data)
+      },
+      err => {
+        console.log(err.message)
+      }
+    )
   }
 }

@@ -145,6 +145,7 @@ export class NgbdModalPoslovniPartnerCreate implements OnInit {
   mesta: Mesto[] = [];
   mesto;
   createPP: PoslovniPartner = new PoslovniPartner();
+  isDisabled = true;
 
   @Input() listaPP;
   constructor(
@@ -202,6 +203,7 @@ export class PoslovniPartneriComponent implements OnInit {
   page = 1;
   pageSize = 5;
   collectionSize = 10;
+  isDisabled = true;
 
   constructor(
     private poslovniPartnerService: PoslovniPartneriService,
@@ -256,5 +258,28 @@ export class PoslovniPartneriComponent implements OnInit {
         return;
       }
     });
+  }
+
+  enableEdit(){
+    this.isDisabled = !this.isDisabled;
+    console.log(this.isDisabled)
+    console.log(this.partner)
+  }
+
+
+
+
+  onSubmitEdit(){
+    console.log(this.partner.nazivPartnera)
+
+    this.poslovniPartnerService.update(this.partner).subscribe(
+      data =>{
+
+      },
+      err => {
+
+      }
+    )
+
   }
 }

@@ -1,7 +1,9 @@
+import { Magacin } from './../_model/Magacin';
+import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Magacin } from '../_model/Magacin';
+
 
 const MAGACIN_URL = "http://localhost:8080/api/magacin/";
 
@@ -25,7 +27,12 @@ export class MagaciniService {
   }
 
   getMagacin(id: number): Observable<Magacin> {
-    return this.http.get<any>(MAGACIN_URL + "get-by-id/" + id);
+    return this.http.get<Magacin>(MAGACIN_URL + "get-by-id/" + id).pipe(map(magacin => {
+      const newMagacin = {...magacin,
+        prometniDokument: magacin.prometniDokument.filter(pd => !pd.deleted)};
+        return newMagacin;
+    }));
+
   }
 
   createMagacin(nazivMagacina) {
