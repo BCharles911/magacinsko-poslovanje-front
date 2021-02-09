@@ -1,3 +1,4 @@
+import { PrometniDokumentiService } from './../_services/prometni-dokumenti.service';
 import { ModalPrijemnicaComponent } from "./modal-prijemnica/modal-prijemnica.component";
 import { ModalOtpremnicaComponent } from "./modal-otpremnica/modal-otpremnica.component";
 import { AnalitikaMagacinskeKartice } from "./../_model/AnalitikaMagacinskeKartice";
@@ -201,7 +202,8 @@ export class MagacinComponent implements OnInit {
     private route: ActivatedRoute,
     private magacinService: MagaciniService,
     private location: Location,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private prometniDokumentiService: PrometniDokumentiService
   ) {}
 
   ngOnInit(): void {
@@ -281,5 +283,11 @@ export class MagacinComponent implements OnInit {
   }
 
 
+  otkaziDokument(idPrometnogDokumenta){
+    this.prometniDokumentiService.otkaziDokument(idPrometnogDokumenta).subscribe(r => {
+      window.location.reload();
+      console.log(r)
+    }
+    )}
 
 }

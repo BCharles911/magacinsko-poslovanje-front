@@ -160,6 +160,7 @@ export class ArtikliComponent implements OnInit {
   artikal: Artikal = new Artikal();
   jediniceMere: JedinicaMere[];
   kategorijeArtikala: KategorijaArtikala[];
+  uspesnoIzmenjeno = false;
 
   constructor(
     private tokenStorageService: TokenStorageService,
@@ -226,6 +227,11 @@ export class ArtikliComponent implements OnInit {
     this.artikliService.update(this.artikal).subscribe(
       data => {
         console.log(data)
+        this.uspesnoIzmenjeno = true;
+        this.isDisabled = true;
+        setTimeout(()=>{                           //<<<---using ()=> syntax
+          this.uspesnoIzmenjeno = false;
+     }, 1500);
       },
       err => {
         console.log(err.message)

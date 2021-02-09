@@ -46,7 +46,7 @@ export class PoslovniPartneriService {
   update(partner): Observable<any> {
 
     return this.http.put(
-      POSLOVNI_URL + "update/" + partner.id,
+      POSLOVNI_URL + "update" ,
       partner,
       httpOptions
     )

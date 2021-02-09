@@ -1,3 +1,5 @@
+import { MagacinskaKartica } from './../_model/MagacinskaKartica';
+import { MagacinskaKarticaService } from './../_services/magacinska-kartica.service';
 import { StavkaPrometnogDokumenta } from './../_model/StavkaPrometnogDokumenta';
 import { Artikal } from './../_model/Artikal';
 import { PoslovniPartner } from './../_model/PoslovniPartner';
@@ -36,6 +38,7 @@ export class OtpremnicaComponent implements OnInit {
   cenaSaPdv = 0;
   ukupnaCenaSvihStavki = 0;
   stavkeToSend: StavkaPrometnogDokumenta[] = [];
+  magacinskaKartica: MagacinskaKartica;
   stavkaDokumenta: StavkaPrometnogDokumenta = new StavkaPrometnogDokumenta(
     0,
     0,
@@ -44,13 +47,15 @@ export class OtpremnicaComponent implements OnInit {
   );
   disablePDVNotZero = true;
   emptyStavke = true;
+  nemaNaStanju = false;
 
 
   constructor(
     private magaciniService: MagaciniService,
     private poslovniPartneriService: PoslovniPartneriService,
     private artikliService: ArtikliService,
-    private prometniDokumentiService: PrometniDokumentiService
+    private prometniDokumentiService: PrometniDokumentiService,
+    private magKarticaService: MagacinskaKarticaService
   ) {
     this.stavkaForm = this.createFormGroup();
   }
@@ -103,31 +108,44 @@ export class OtpremnicaComponent implements OnInit {
       }),
     });
   }
+  begoneWarning(){
+    this.nemaNaStanju = false;
+  }
 
   onSubmit() {
-    let ukcena =
-      this.stavkaForm.value.stavkaPrometnogDokumenta.cena *
-      this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina;
-    var pot = ukcena / 100;
-    var cenaRabat = ukcena - pot * this.rabat;
-
-    var cenaSaPDV = cenaRabat + pot * this.pdv;
-
-    this.pushStavka(
-      this.setStavka(
-        this.stavkaForm.value.stavkaPrometnogDokumenta.cena,
-        this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina,
+    this.magKarticaService.getBySifraArtikla(this.artikal.sifraArtikla).subscribe(response => {
+      this.magacinskaKartica = response;
+      if(this.magacinskaKartica.ukupnaKolicina <  this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina ){
+        this.nemaNaStanju = true;
+      }else{
+        let ukcena =
         this.stavkaForm.value.stavkaPrometnogDokumenta.cena *
-          this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina,
-        this.artikal
-      )
-    );
-    this.emptyStavke = false;
+        this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina;
+      var pot = ukcena / 100;
+      var cenaRabat = ukcena - pot * this.rabat;
 
-    var cenaPDVRABAT = cenaSaPDV - pot * this.rabat;
-    console.log("pocetna ukupna cena:" + ukcena);
-    console.log("cena sa rabatom: " + cenaRabat);
-    console.log("cena sa pdv: " + cenaSaPDV);
+      var cenaSaPDV = cenaRabat + pot * this.pdv;
+
+      this.pushStavka(
+        this.setStavka(
+          this.stavkaForm.value.stavkaPrometnogDokumenta.cena,
+          this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina,
+          this.stavkaForm.value.stavkaPrometnogDokumenta.cena *
+            this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina,
+          this.artikal
+        )
+      );
+      this.emptyStavke = false;
+
+      var cenaPDVRABAT = cenaSaPDV - pot * this.rabat;
+      console.log("pocetna ukupna cena:" + ukcena);
+      console.log("cena sa rabatom: " + cenaRabat);
+      console.log("cena sa pdv: " + cenaSaPDV);
+
+      }
+    });
+
+
     //console.log("stavke: " + this.stavkeToSend[0].artikal.nazivArtikla);
     //this.stavkaForm.reset();
   }

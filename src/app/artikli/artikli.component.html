@@ -12,7 +12,7 @@
           <ul class="navbar-nav">
             <li class="nav-item active">
               <a class="nav-link" (click)="openArtikal()">
-                <i-bs  name="plus-square" class="text-secondary" width="2rem" height="2rem">
+                <i-bs name="plus-square" class="text-secondary" width="2rem" height="2rem">
                 </i-bs> <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -34,7 +34,7 @@
         <tbody>
           <tr *ngFor="let artikal of artikli  | slice: (page-1) * pageSize : page * pageSize ">
             <th scope="row">1</th>
-            <td  class="td-click" (click)="setArtikal(artikal)">{{artikal.nazivArtikla}}</td>
+            <td class="td-click" (click)="setArtikal(artikal)">{{artikal.nazivArtikla}}</td>
             <td>{{artikal.sifraArtikla}}</td>
             <td>{{artikal.jedinicaMere.nazivJediniceMere}}</td>
             <td *ngIf="showAdminOptions" style="text-align: center;">
@@ -46,22 +46,17 @@
 
         </tbody>
       </table>
-      <ngb-pagination
-      class="d-flex justify-content-center"
-      [(page)]="page"
-      [pageSize]="pageSize"
-      [collectionSize]="artikli?.length"></ngb-pagination>
+      <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+        [collectionSize]="artikli?.length"></ngb-pagination>
 
 
       <hr>
+      <span *ngIf="uspesnoIzmenjeno" class="badge badge-success">Uspesno izmenjeno!</span>
       <p>{{this.artikal?.nazivArtikla}}</p>
+
       <button class="btn btn-sm" (click)="enableEdit()">
-        <i-bs
-        name="pencil"
-        class="text-secondary"
-        width="1.5rem"
-        height="1.5rem">
-      </i-bs>
+        <i-bs name="pencil" class="text-secondary" width="1.5rem" height="1.5rem">
+        </i-bs>
       </button>
 
 
@@ -73,16 +68,20 @@
                 <div class="row">
                   <div class="col">
                     <div class="form-group">
-                      <label for="nazivArtikla">Naziv artikla</label>
-                      <input type="text" class="form-control" id="nazivArtikla" required [(ngModel)]="artikal.nazivArtikla"
-                        name="nazivArtikla">
+                      <label for="nazivArtikla">Naziv artikla </label>
+                      <input required type="text" class="form-control" id="nazivArtikla" required
+                        [(ngModel)]="artikal.nazivArtikla" name="nazivArtikla" #name="ngModel">
+                      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                        Ovo polje je obavezno
+                      </div>
                     </div>
 
                   </div>
                   <div class="col">
                     <div class="form-group">
                       <label for="jedinicaMere">Jedinica mere</label>
-                      <select class="form-control" id="jedinicaMere" required [(ngModel)]="artikal.jedinicaMere"  name="jedinicaMere" >
+                      <select class="form-control" id="jedinicaMere" required [(ngModel)]="artikal.jedinicaMere"
+                        name="jedinicaMere">
                         <option [ngValue]="artikal.jedinicaMere">{{artikal.jedinicaMere?.nazivJediniceMere}}</option>
                         <option *ngFor="let pow of jediniceMere" [ngValue]="pow">{{pow.nazivJediniceMere}}</option>
                       </select>
@@ -94,28 +93,32 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="kategorijaArtikala">Jedinica mere</label>
-                      <select class="form-control" id="kategorijaArtikala" required [(ngModel)]="artikal.kategorijaArtikala"  name="kategorijaArtikala" >
-                        <option [ngValue]="artikal.kategorijaArtikala">{{artikal.kategorijaArtikala?.nazivKategorije}}</option>
-                        <option *ngFor="let kategorijaArtikala of kategorijeArtikala" [ngValue]="kategorijaArtikala">{{kategorijaArtikala.nazivKategorije}}</option>
+                      <select class="form-control" id="kategorijaArtikala" required
+                        [(ngModel)]="artikal.kategorijaArtikala" name="kategorijaArtikala">
+                        <option [ngValue]="artikal.kategorijaArtikala">{{artikal.kategorijaArtikala?.nazivKategorije}}
+                        </option>
+                        <option *ngFor="let kategorijaArtikala of kategorijeArtikala" [ngValue]="kategorijaArtikala">
+                          {{kategorijaArtikala.nazivKategorije}}</option>
                       </select>
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-group">
                       <label for="sifraArtikla">Sifra artikla</label>
-                      <input type="text" class="form-control" id="sifraArtikla" [(ngModel)]="artikal.sifraArtikla" name="sifraArtikla">
+                      <input disabled type="text" class="form-control" id="sifraArtikla"
+                        [(ngModel)]="artikal.sifraArtikla" name="sifraArtikla">
                     </div>
                   </div>
                 </div>
 
 
-                <button type="submit" class="btn btn-success" (click)="onSubmitEdit()">Submit</button>
+                <button class="btn btn-success" (click)="onSubmitEdit()">Submit</button>
               </fieldset>
             </form>
 
           </div>
           <div class="col-sm">
-              {{heroForm.value | json}}
+            {{heroForm.value | json}}
 
 
 

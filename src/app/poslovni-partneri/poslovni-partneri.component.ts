@@ -204,11 +204,14 @@ export class PoslovniPartneriComponent implements OnInit {
   pageSize = 5;
   collectionSize = 10;
   isDisabled = true;
+  uspesnoIzmenjeno = false;
+  mesta: Mesto[];
 
   constructor(
     private poslovniPartnerService: PoslovniPartneriService,
     private modalService: NgbModal,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private mestoService : MestoService
   ) {}
 
   ngOnInit(): void {
@@ -218,6 +221,7 @@ export class PoslovniPartneriComponent implements OnInit {
     this.showAdminOptions = this.tokenStorageService
       .getUser()
       .roles.includes("ROLE_ADMIN");
+      this.mestoService.getAll().subscribe(r => this.mesta = r)
   }
 
   setPartner(p) {
@@ -274,6 +278,12 @@ export class PoslovniPartneriComponent implements OnInit {
 
     this.poslovniPartnerService.update(this.partner).subscribe(
       data =>{
+
+        this.uspesnoIzmenjeno = true;
+        this.isDisabled = true;
+        setTimeout(()=>{                           //<<<---using ()=> syntax
+          this.uspesnoIzmenjeno = false;
+     }, 1500);
 
       },
       err => {

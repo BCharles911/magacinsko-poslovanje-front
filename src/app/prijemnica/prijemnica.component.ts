@@ -1,3 +1,4 @@
+import { MagacinskaKarticaService } from './../_services/magacinska-kartica.service';
 import { PrometniDokumentiService } from './../_services/prometni-dokumenti.service';
 import { StavkaPrometnogDokumenta } from "./../_model/StavkaPrometnogDokumenta";
 import { ArtikliService } from "./../_services/artikli.service";
@@ -58,7 +59,8 @@ export class PrijemnicaComponent implements OnInit {
     private magaciniService: MagaciniService,
     private poslovniPartneriService: PoslovniPartneriService,
     private artikliService: ArtikliService,
-    private prometniDokumentiService: PrometniDokumentiService
+    private prometniDokumentiService: PrometniDokumentiService,
+    private magKarticaService: MagacinskaKarticaService
   ) {
     this.stavkaForm = this.createFormGroup();
   }
@@ -109,6 +111,7 @@ export class PrijemnicaComponent implements OnInit {
   }
 
   onSubmit() {
+
     let ukcena =
       this.stavkaForm.value.stavkaPrometnogDokumenta.cena *
       this.stavkaForm.value.stavkaPrometnogDokumenta.kolicina;
@@ -242,7 +245,7 @@ export class PrijemnicaComponent implements OnInit {
         this.selectedMagacin, this.selectedPoslovniPartner, this.stavkeToSend, this.todaysDate
       ).subscribe(response =>  {
         console.log(response)
-        window.location.reload();
+        location.replace('/lista-prijemnica');
       });
 
       console.log(this.todaysDate)

@@ -59,6 +59,8 @@
 
       <hr>
 
+      <span *ngIf="uspesnoIzmenjeno" class="badge badge-success">Uspesno izmenjeno!</span>
+
       <p>{{this.partner?.nazivPartnera}}</p>
       <button class="btn btn-sm" (click)="enableEdit()">
         <i-bs name="pencil" class="text-secondary" width="1.5rem" height="1.5rem">
@@ -88,10 +90,23 @@
                       <label for="adresaPoslovnogPartnera">Adresa poslovnog partnera</label>
                       <input type="text" class="form-control" id="adresaPoslovnogPartnera"
                         [(ngModel)]="partner.adresaPoslovnogPartnera" name="adresaPoslovnogPartnera" #name="ngModel">
-                        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                          Ovo polje je obavezno
-                        </div>
+                      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                        Ovo polje je obavezno
+                      </div>
 
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="kategorijaArtikala">Mesto</label>
+                      <select class="form-control" id="mesto" required
+                        [(ngModel)]="partner.mesto" name="mesto">
+                        <option [ngValue]="partner.mesto">{{partner.mesto?.nazivMesta}}
+                        </option>
+                        <option *ngFor="let mesto of mesta" [ngValue]="mesto">
+                          {{mesto.nazivMesta}}</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -100,9 +115,9 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="pib">PIB</label>
-                      <input type="text" class="form-control" required minlength="8" maxlength="8" id="dateOfBirth"
-                        [(ngModel)]="partner.pib" name="pib" #name="ngModel">
-                      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                      <input type="text" class="form-control" number required minlength="8" maxlength="8" id="dateOfBirth"
+                        [(ngModel)]="partner.pib" name="pib" #pib="ngModel">
+                      <div [hidden]="pib.valid || pib.pristine" class="alert alert-danger">
                         Ovo polje je obavezno i PIB mora da sadrzi tacno 8 cifara!
                       </div>
                     </div>

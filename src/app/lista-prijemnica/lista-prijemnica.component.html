@@ -47,8 +47,6 @@
               </i-bs> -->
               <button *ngIf="prometniDokument.tipPrometnogDokumenta === 'PRIJEMNICA'" class="btn btn-sm btn-secondary"  (click)="proknjiziPrijemnicu(prometniDokument.idPrometnogDokumenta)" [disabled]="prometniDokument.status==='PROKNJIZENO'"
               style="margin-right: 5px;">Proknjizi prijemnicu</button>
-              <button  *ngIf="prometniDokument.tipPrometnogDokumenta === 'OTPREMNICA'" class="btn btn-sm btn-secondary"  (click)="proknjiziOtpremnicu(prometniDokument.idPrometnogDokumenta)" [disabled]="prometniDokument.status==='PROKNJIZENO'"
-              style="margin-right: 5px;">Proknjizi otpremnicu</button>
             </td>
             <td *ngIf="showAdminOptions" style="text-align: center;">
               <!--  <i-bs (click)="ssss" name="trash" class="text-danger" width="1rem" height="1rem">

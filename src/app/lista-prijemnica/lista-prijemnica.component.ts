@@ -39,9 +39,6 @@ export class ListaPrijemnicaComponent implements OnInit {
     )
   }
 
-  proknjiziOtpremnicu(idPrometnogDokumenta){
-
-  }
 
   otkaziPrijemnicu(idPrometnogDokumenta){
     this.prometniDokumentiService.otkaziDokument(idPrometnogDokumenta).subscribe(r => {

@@ -57,7 +57,7 @@
                   <th scope="col">Datum knjizenja</th>
                   <th scope="col">Datum formiranja</th>
                   <th scope="col">Proknjizi</th>
-                  <th scope="col">Otknjizi</th>
+                  <th scope="col">Otkazi</th>
                   <th scope="col">Stampaj</th>
                 </tr>
               </thead>
@@ -84,7 +84,10 @@
 
                   </td>
                   <td style="text-align: center;">
-                    <i-bs name="dash-circle-fill" class="text-danger" width="1.2rem" height="1.2rem">
+                    <i-bs *ngIf="m.status === 'U_FAZI_KNJIZENJA'" name="dash-circle-fill" (click)="otkaziDokument(m.idPrometnogDokumenta)" class="text-danger" width="1.2rem" height="1.2rem">
+                    </i-bs>
+                    <i-bs *ngIf="m.status === 'PROKNJIZENO'" name="dash-circle"  class="text-danger" width="1.2rem" height="1.2rem">
+                      proknjizeno
                     </i-bs>
                   </td>
                   <td style="text-align: center;">

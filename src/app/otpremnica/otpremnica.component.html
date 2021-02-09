@@ -156,7 +156,7 @@
                         [placeholder]="'cena po ' + artikal?.jedinicaMere.nazivJediniceMere" type="number"
                         formControlName="cena" aria-describedby="basic-addon3" />
                     </div>
-                    <label for="kolicina-input"><b style="font-weight: 600!important;">Kolicina</b></label>
+                    <label for="kolicina-input"><b style="font-weight: 600!important;">Kolicina <span style="padding:0; padding-left:4px;padding-right: 4px;" (click)="begoneWarning()" *ngIf="nemaNaStanju" class="badge badge-warning">Nema na stanju!</span></b></label>
                     <div class="input-group mb-3">
 
                       <input type="number" class="form-control" id="kolicina-input"
