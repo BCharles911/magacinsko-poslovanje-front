@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit {
     if(!this.tokenStorageService.getToken()){
       window.location.replace('http://localhost:4200/login');
     }
+
   }
 
 }

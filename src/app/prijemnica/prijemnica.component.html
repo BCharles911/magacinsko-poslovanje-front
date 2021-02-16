@@ -52,7 +52,7 @@
       <div class="container-fluid" style="padding:0;">
         <div class="row">
           <div class="col-sm">
-            <label ><b style="font-weight: 600!important;">Magacin</b></label>
+            <label><b style="font-weight: 600!important;">Magacin</b></label>
             <hr>
             <ng-select bindLabel="nazivMagacina" [items]="magacini" [(ngModel)]="selectedMagacin">
 
@@ -76,7 +76,12 @@
 
           </div>
           <div class="col-sm">
-            <label ><b style="font-weight: 600!important;">Poslovni partner</b></label>
+
+            <button (click)="openPartner()" class="btn btn-sm">
+              <i-bs name="plus-circle-fill" class="text-success" width="1rem" height="1rem">
+              </i-bs>
+            </button>
+            <label><b style="font-weight: 600!important;">Poslovni partner</b></label>
             <hr>
             <ng-select bindLabel="nazivPartnera" [items]="poslovniPartneri" [(ngModel)]="selectedPoslovniPartner">
 
@@ -103,8 +108,11 @@
             </div>
           </div>
           <div class="col-sm">
-
-            <label ><b style="font-weight: 600!important;">Dodaj Stavku</b></label>
+            <button (click)="openArtikal()" class="btn btn-sm">
+              <i-bs name="plus-circle-fill" class="text-success" width="1rem" height="1rem">
+              </i-bs>
+            </button>
+            <label><b style="font-weight: 600!important;">Dodaj Stavku</b></label>
             <hr>
             <ng-select bindLabel="nazivArtikla" autofocus [items]="artikli" [(ngModel)]="artikal">
 
@@ -120,13 +128,13 @@
                 <div class="input-group mb3">
                   <div class="row">
                     <div class="col">
-                      <label ><b style="font-weight: 600!important;">Rabat</b></label>
+                      <label><b style="font-weight: 600!important;">Rabat</b></label>
                       <input type="number" class="form-control" id="cena-input" [placeholder]="rabat"
                         [(ngModel)]="rabat" aria-describedby="basic-addon3" />
 
                     </div>
                     <div class="col">
-                      <label ><b style="font-weight: 600!important;">PDV</b></label>
+                      <label><b style="font-weight: 600!important;">PDV</b></label>
                       <input type="number" class="form-control" id="pdv-input" [placeholder]="pdv" [(ngModel)]="pdv"
                         aria-describedby="basic-addon3" />
 
@@ -139,7 +147,7 @@
                   <div formGroupName="stavkaPrometnogDokumenta" novalidate>
 
 
-                    <label ><b style="font-weight: 600!important;">Cena</b></label>
+                    <label><b style="font-weight: 600!important;">Cena</b></label>
 
                     <div class="input-group mb-3">
 

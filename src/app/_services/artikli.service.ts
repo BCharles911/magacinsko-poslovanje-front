@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpInterceptor, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -20,7 +21,8 @@ export class ArtikliService {
 
   getAllArtikle(): Observable<Artikal[]> {
 
-    return this.http.get<any>(ARTIKLI_URL + 'all');
+    return this.http.get<any>(ARTIKLI_URL + 'all').pipe(
+      map(results => results.sort((a,b) => a.sifraArtikla < b.sifraArtikla ? -1 :1)));
 
   }
 

@@ -136,11 +136,12 @@ export class NgbdArtikalCreateModal implements OnInit {
     artikalToCreate.nazivArtikla = this.artikalForm.value.nazivArtikla;
     artikalToCreate.jedinicaMere = this.artikalForm.value.jedinicaMere;
     artikalToCreate.kategorijaArtikala = this.artikalForm.value.kategorijaArtikala;
+    this.activeModal.close(artikalToCreate);
     console.log(artikalToCreate)
     this.artikalService.createArtikal(artikalToCreate).subscribe((response) => {
       console.log(response)
       this.activeModal.close();
-      window.location.reload();
+     // window.location.reload();
     });
   }
 }

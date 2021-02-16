@@ -1,3 +1,5 @@
+import { NgbdModalPoslovniPartnerCreate } from './../poslovni-partneri/poslovni-partneri.component';
+import { NgbdArtikalCreateModal } from './../artikli/artikli.component';
 import { MagacinskaKarticaService } from './../_services/magacinska-kartica.service';
 import { PrometniDokumentiService } from './../_services/prometni-dokumenti.service';
 import { StavkaPrometnogDokumenta } from "./../_model/StavkaPrometnogDokumenta";
@@ -18,6 +20,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: "app-prijemnica",
@@ -28,7 +31,7 @@ import {
 })
 export class PrijemnicaComponent implements OnInit {
   magacini: Magacin[] = [];
-  poslovniPartneri: PoslovniPartner[] = [];
+  poslovniPartneri;
   artikli: Artikal[] = [];
   artikal = null;
   selectedPoslovniPartner = null;
@@ -60,7 +63,8 @@ export class PrijemnicaComponent implements OnInit {
     private poslovniPartneriService: PoslovniPartneriService,
     private artikliService: ArtikliService,
     private prometniDokumentiService: PrometniDokumentiService,
-    private magKarticaService: MagacinskaKarticaService
+    private magKarticaService: MagacinskaKarticaService,
+    private modalService : NgbModal
   ) {
     this.stavkaForm = this.createFormGroup();
   }
@@ -253,4 +257,37 @@ export class PrijemnicaComponent implements OnInit {
       console.log(this.selectedPoslovniPartner);
     }
   }
+
+
+  openArtikal() {
+    const modalRef = this.modalService.open(NgbdArtikalCreateModal, {size: 'xl'})
+    modalRef.result.then((receivedArtikal) => {
+
+      console.log(this.artikli[this.artikli.length - 2 ].sifraArtikla + 2)
+      let newId = this.artikli[this.artikli.length - 2 ].sifraArtikla + 2;
+      receivedArtikal.sifraArtikla = newId;
+      this.artikli = [...this.artikli, receivedArtikal]
+
+    })
+  }
+
+  openPartner() {
+    const modalRef = this.modalService.open(NgbdModalPoslovniPartnerCreate, {
+      size: "xl",
+    });
+    modalRef.result.then((receivedPartner) => {
+      console.log('aaaa')
+      this.poslovniPartneri = [...this.poslovniPartneri, receivedPartner]
+      console.log(receivedPartner)
+      //this.poslovniPartneri$.subscribe(data => data.push(receivedPartner))
+      // this.poslovniPartneri$.pipe(map(poslovniList => {
+      //   poslovniList.push(receivedPartner)
+      //   console.log(poslovniList)
+      //   return poslovniList;
+
+      // }))
+    });
+  }
+
+
 }

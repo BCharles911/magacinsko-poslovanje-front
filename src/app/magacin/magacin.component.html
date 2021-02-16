@@ -68,7 +68,7 @@
                   <td>{{m.redniBrojDokumenta}}</td>
 
                   <td>{{m.poslovnaGodina}}</td>
-                  <td>{{m.status}}</td>
+                  <td>{{m.status.toLowerCase()}}</td>
                   <td *ngIf="m.tipPrometnogDokumenta === 'PRIJEMNICA'" (click)="showDetails(m)">Prijemnica</td>
                   <td *ngIf="m.tipPrometnogDokumenta === 'OTPREMNICA'" (click)="showDetails(m)">Otpremnica</td>
                   <td>{{m.datumKnjizenja}}</td>
