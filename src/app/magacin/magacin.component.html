@@ -138,6 +138,10 @@
                       </i-bs> Izvestaj <span class="sr-only">(current)</span>
                     </a>
                   </li>
+                  <li>
+                    <label>Prikazi samo zakljucene</label>
+                    <input type="checkbox" [(ngModel)]="theCheckbox"  data-md-icheck (change)="toggleVisibility($event)"/>
+                  </li>
 
                 </ul>
 
@@ -162,7 +166,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let m of magacinskeKartice | slice: (page-1) * pageSize : page * pageSize "
+                <tr *ngFor="let m of filteredMagacinskeKartice | slice: (page-1) * pageSize : page * pageSize "
                   (click)="openMag(m)">
                   <th scope="row">{{m.idMagacinskeKartice}}</th>
                   <td>{{m.redniBrMagacinskeKa}}</td>
@@ -186,7 +190,7 @@
             </table>
 
             <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
-              [collectionSize]="magacinskeKartice?.length"></ngb-pagination>
+              [collectionSize]="filteredMagacinskeKartice?.length"></ngb-pagination>
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>

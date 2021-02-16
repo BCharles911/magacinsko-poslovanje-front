@@ -195,8 +195,13 @@ export class MagacinComponent implements OnInit {
   pageSizeD = 10;
   collectionSizeD = 10;
   magacinskeKartice: MagacinskaKartica[];
+  filteredMagacinskeKartice: MagacinskaKartica[];
   prometniDokumenti: PrometniDokument[];
   detaljiDokumenta: PrometniDokument;
+
+
+  marked = false;
+  theCheckbox = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -213,6 +218,7 @@ export class MagacinComponent implements OnInit {
       {
         (this.idPoslovneGodine = m.magacinskeKartice[0]?.poslovnaGodina?.idGodine)
         this.magacinskeKartice = m.magacinskeKartice.sort((a,b) => a.idMagacinskeKartice - b.idMagacinskeKartice);
+        this.filteredMagacinskeKartice = this.magacinskeKartice;
         this.prometniDokumenti = m.prometniDokument.sort((a,b) => a.idPrometnogDokumenta - b.idPrometnogDokumenta);
       }
     );
@@ -281,7 +287,22 @@ export class MagacinComponent implements OnInit {
     })
 
   }
+  toggleVisibility(e){
+    this.marked= e.target.checked;
+    if(this.marked === true){
+      console.log('true')
+     // this.ngOnInit();
+      //this.magacinskeKartice = m.magacinskeKartice.sort((a,b) => a.idMagacinskeKartice - b.idMagacinskeKartice);
+      this.filteredMagacinskeKartice = this.magacinskeKartice.filter(mag => mag.poslovnaGodina.zakljucena === true);
+      this.collectionSize = this.filteredMagacinskeKartice.length / this.pageSize;
+      console.log(this.filteredMagacinskeKartice.length);
+    }else{
+     // this.ngOnInit();
+      console.log('false')
+      this.filteredMagacinskeKartice = this.magacinskeKartice;
 
+    }
+  }
 
   otkaziDokument(idPrometnogDokumenta){
     this.prometniDokumentiService.otkaziDokument(idPrometnogDokumenta).subscribe(r => {
@@ -289,5 +310,7 @@ export class MagacinComponent implements OnInit {
       console.log(r)
     }
     )}
+
+
 
 }
