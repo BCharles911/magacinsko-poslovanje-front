@@ -26,7 +26,8 @@ export class PoslovniPartneriService {
   }
 
   getByDobavljaci(): Observable<PoslovniPartner[]> {
-    return this.http.get<any>(POSLOVNI_URL + "dobavljaci")
+    return this.http.get<any>(POSLOVNI_URL + "dobavljaci").pipe(
+      map(results => results.sort((a,b) => a.sifraPartnera < b.sifraPartnera ? -1 :1)));
   }
 
   getByKupci(): Observable<PoslovniPartner[]> {

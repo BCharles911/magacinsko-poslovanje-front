@@ -277,6 +277,9 @@ export class PrijemnicaComponent implements OnInit {
     });
     modalRef.result.then((receivedPartner) => {
       console.log('aaaa')
+      let newId = this.poslovniPartneri[this.poslovniPartneri.length - 2].sifraPartnera + 2;
+      receivedPartner.sifraPartnera = newId;
+      console.log(newId);
       this.poslovniPartneri = [...this.poslovniPartneri, receivedPartner]
       console.log(receivedPartner)
       //this.poslovniPartneri$.subscribe(data => data.push(receivedPartner))
