@@ -221,6 +221,7 @@ export class MagacinComponent implements OnInit {
         this.magacinskeKartice = m.magacinskeKartice.sort((a,b) => a.idMagacinskeKartice - b.idMagacinskeKartice);
         this.filteredMagacinskeKartice = this.magacinskeKartice;
         this.prometniDokumenti = m.prometniDokument.sort((a,b) => a.idPrometnogDokumenta - b.idPrometnogDokumenta);
+        console.log(this.prometniDokumenti)
       }
     );
 

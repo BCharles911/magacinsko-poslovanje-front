@@ -15,12 +15,14 @@ import { MagacinComponent } from './magacin/magacin.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent, data: { animation: 'HomePage'} },
+  { path: '', component: MagaciniComponent },
+  { path: 'home', component: MagaciniComponent, data: { animation: 'HomePage'} },
   { path: 'login', component: LoginComponent },
   {path: 'magacini', component: MagaciniComponent },
   {path: 'magacini/magacin/:id', component: MagacinComponent},
   {path: 'admin-panel/magacin/:id', component: MagacinComponent},
+  {path: 'home/magacin/:id', component: MagacinComponent},
+  {path: 'magacin/:id', component: MagacinComponent},
   {path: 'artikli', component: ArtikliComponent},
   {path: 'prijemnica', component: PrijemnicaComponent, data: { animation: 'AboutPage'}},
   {path: 'otpremnica', component: OtpremnicaComponent},
