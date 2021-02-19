@@ -189,7 +189,7 @@ export class MagacinComponent implements OnInit {
   idPoslovneGodine;
 
   page = 1;
-  pageSize = 4;
+  pageSize = 10;
   collectionSize = 10;
   pageD = 1;
   pageSizeD = 10;
@@ -202,6 +202,7 @@ export class MagacinComponent implements OnInit {
 
   marked = false;
   theCheckbox = false;
+  theCheckbox2 = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -294,6 +295,22 @@ export class MagacinComponent implements OnInit {
      // this.ngOnInit();
       //this.magacinskeKartice = m.magacinskeKartice.sort((a,b) => a.idMagacinskeKartice - b.idMagacinskeKartice);
       this.filteredMagacinskeKartice = this.magacinskeKartice.filter(mag => mag.poslovnaGodina.zakljucena === true);
+      this.collectionSize = this.filteredMagacinskeKartice.length / this.pageSize;
+      console.log(this.filteredMagacinskeKartice.length);
+    }else{
+     // this.ngOnInit();
+      console.log('false')
+      this.filteredMagacinskeKartice = this.magacinskeKartice;
+
+    }
+  }
+  toggleVisibilityActive(e){
+    this.marked= e.target.checked;
+    if(this.marked === true){
+      console.log('true')
+     // this.ngOnInit();
+      //this.magacinskeKartice = m.magacinskeKartice.sort((a,b) => a.idMagacinskeKartice - b.idMagacinskeKartice);
+      this.filteredMagacinskeKartice = this.magacinskeKartice.filter(mag => mag.poslovnaGodina.zakljucena === false);
       this.collectionSize = this.filteredMagacinskeKartice.length / this.pageSize;
       console.log(this.filteredMagacinskeKartice.length);
     }else{
