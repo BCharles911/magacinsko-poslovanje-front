@@ -6,7 +6,7 @@ import { MagacinskaKartica } from "./../_model/MagacinskaKartica";
 import { PrometniDokument } from "./../_model/PrometniDokument";
 
 import { MagaciniService } from "./../_services/magacini.service";
-import { Component, Input, OnInit, PipeTransform } from "@angular/core";
+import { Component, Directive, Input, OnInit, Output, PipeTransform, QueryList, ViewChildren } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Magacin } from "../_model/Magacin";
 import { DecimalPipe, Location } from "@angular/common";
@@ -15,6 +15,7 @@ import { FormControl } from "@angular/forms";
 import { map, startWith } from "rxjs/operators";
 import { of, Observable } from "rxjs";
 import { saveAs } from 'file-saver';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: "ngbd-modal-content",
@@ -179,6 +180,8 @@ export class NgbMagacinskeKartice implements OnInit {
 
 }
 
+
+
 @Component({
   selector: "app-magacin",
   templateUrl: "./magacin.component.html",
@@ -187,7 +190,6 @@ export class NgbMagacinskeKartice implements OnInit {
 export class MagacinComponent implements OnInit {
   magacin$: Observable<Magacin>;
   idPoslovneGodine;
-
   page = 1;
   pageSize = 10;
   collectionSize = 10;
@@ -328,7 +330,6 @@ export class MagacinComponent implements OnInit {
       console.log(r)
     }
     )}
-
 
 
 }
