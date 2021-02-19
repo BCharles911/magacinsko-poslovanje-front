@@ -94,10 +94,14 @@ export class MagaciniComponent implements OnInit {
     private magaciniService: MagaciniService,
     private route: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+
   ) {}
 
   ngOnInit(): void {
+    if(!this.tokenStorageService.getToken()){
+      window.location.replace('http://localhost:4200/login');
+    }
     this.showAdminOptions = this.tokenStorageService
       .getUser()
       .roles.includes("ROLE_ADMIN");

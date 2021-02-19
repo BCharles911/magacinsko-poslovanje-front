@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../_services/token-storage.service';
 import { PrometniDokumentiService } from './../_services/prometni-dokumenti.service';
 import { ModalPrijemnicaComponent } from "./modal-prijemnica/modal-prijemnica.component";
 import { ModalOtpremnicaComponent } from "./modal-otpremnica/modal-otpremnica.component";
@@ -211,10 +212,11 @@ export class MagacinComponent implements OnInit {
     private magacinService: MagaciniService,
     private location: Location,
     private modalService: NgbModal,
-    private prometniDokumentiService: PrometniDokumentiService
+    private prometniDokumentiService: PrometniDokumentiService,
   ) {}
 
   ngOnInit(): void {
+
     this.getMagacin();
     this.magacin$.subscribe(
       (m) =>
