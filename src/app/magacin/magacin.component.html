@@ -193,14 +193,14 @@
                 <tr *ngFor="let m of filteredMagacinskeKartice | slice: (page-1) * pageSize : page * pageSize "
                   (click)="openMag(m)">
                   <th scope="row">{{m.idMagacinskeKartice}}</th>
-                  <td>{{m.redniBrMagacinskeKa}}</td>
+                  <td>{{m.redniBrMagacinskeKar}}</td>
                   <td><strong>{{m.artikal.nazivArtikla}}</strong></td>
 
                   <td>{{m.poslovnaGodina?.godina }} / {{m.poslovnaGodina?.zakljucena}} </td>
                   <td>{{m.cena | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-success"> RSD </span> </td>
                   <td>{{m.kolicinaUlaza | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-secondary"> {{m.artikal.jedinicaMere.nazivJediniceMere}} </span> </td>
                   <td>{{m.vrednostPocetnogStanja | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-success"> RSD</span></td>
-                  <td>{{m.kolicinaIzlaza | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-danger"> RSD</span></td>
+                  <td>{{m.kolicinaIzlaza | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-secondary"> {{m.artikal.jedinicaMere.nazivJediniceMere}}</span></td>
                   <td>{{m.vrednostIzlaza | number}} -<span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-danger"> RSD</span></td>
                   <td>{{m.vrednostUlaza | number}} - <span style="padding: 0; padding-left: 2px; padding-right: 2px;" class="badge badge-success"> RSD</span></td>
                   <td>{{m.ukupnaKolicina | number}} - {{m.artikal.jedinicaMere.nazivJediniceMere}}</td>

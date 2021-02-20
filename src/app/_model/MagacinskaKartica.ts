@@ -9,7 +9,7 @@ export class MagacinskaKartica {
   kolicinaIzlaza: number;
   kolicinaPocetnogStanja: number;
   kolicinaUlaza: number;
-  redniBrMagacinskeKa: number;
+  redniBrMagacinskeKar: number;
   ukupnaKolicina: number;
   ukupnaVrednost: number;
   vrednostIzlaza: number;
