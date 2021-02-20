@@ -49,8 +49,6 @@
                 <tr>
                   <th scope="col">id</th>
                   <th scope="col">Broj prometnog dokumenta</th>
-                  <th scope="col">Redni broj dokumenta</th>
-
                   <th scope="col">Poslovna godina</th>
                   <th scope="col">Status</th>
                   <th scope="col">Tip prometnog dokumenta</th>
@@ -65,9 +63,7 @@
                 <tr *ngFor="let m of prometniDokumenti| slice: (pageD-1) * pageSizeD : pageD * pageSizeD ">
                   <th (click)="open(m)" scope="row">{{m.idPrometnogDokumenta}}</th>
                   <td>{{m.brojPrometnogDokumenta}}</td>
-                  <td>{{m.redniBrojDokumenta}}</td>
-
-                  <td>{{m.poslovnaGodina?.idGodine | number}}</td>
+                  <td>{{m.poslovnaGodina?.idGodine}}</td>
                   <td>{{m.status.toLowerCase()}}</td>
                   <td *ngIf="m.tipPrometnogDokumenta === 'PRIJEMNICA'" (click)="showDetails(m)">Prijemnica</td>
                   <td *ngIf="m.tipPrometnogDokumenta === 'OTPREMNICA'" (click)="showDetails(m)">Otpremnica</td>
